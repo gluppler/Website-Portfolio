@@ -3,70 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gluppler Terminal</title>
+  <title>Gabe Terminal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Matrix Background Canvas -->
   <canvas id="matrix"></canvas>
 
-  <!-- Full-Screen Terminal Tiling Container -->
-  <div id="tiling-container">
+  <!-- Fact Panel (Fixed Top Center) -->
+  <div class="window" id="fact">
+    <div class="header">Fact of the Day</div>
+    <div class="content">
+      <p id="fact-text">Loading cyber facts...</p>
+    </div>
+  </div>
 
-    <!-- Fact of the Day (fixed top center) -->
-    <div class="window" id="fact" style="position:absolute; top:20px; left:50%; transform:translateX(-50%);">
-      <div class="header">Fact of the Day</div>
-      <div class="content">
-        <p id="fact-text">Loading random fact...</p>
+  <!-- Contact Panel -->
+  <div class="window" id="contact">
+    <div class="header">Contact</div>
+    <div class="content">
+      <p>Student & Aspiring Malware Analyst</p>
+      <p>📧 <a href="mailto:chewzhanhongint@gmail.com">chewzhanhongint@gmail.com</a></p>
+      <p>📍 Digital Space</p>
+    </div>
+  </div>
+
+  <!-- Socials Panel -->
+  <div class="window" id="socials">
+    <div class="header">Socials</div>
+    <div class="content">
+      <div class="header-icons">
+        <a aria-label="GitHub" target="_blank" href="https://github.com/gluppler">
+          <i class="icon fa fa-github-alt"></i>
+        </a>
+        <a aria-label="LinkedIn" href="#" target="_blank">
+          <i class="icon fa fa-linkedin"></i>
+        </a>
+        <a aria-label="Twitter" target="_blank" href="#">
+          <i class="icon fa fa-twitter"></i>
+        </a>
+        <a aria-label="Blog" href="#" target="_blank">
+          <i class="icon fa fa-medium"></i>
+        </a>
+        <a aria-label="Malware Research" href="#" target="_blank">
+          <i class="icon fa fa-flask"></i>
+        </a>
+        <a aria-label="CTF Profile" href="#" target="_blank">
+          <i class="icon fa fa-flag"></i>
+        </a>
       </div>
     </div>
+  </div>
 
-    <!-- whoami Panel -->
-    <div class="window" id="whoami">
-      <div class="header">whoami</div>
-      <div class="content">
-        <pre id="whoami-text">gluppler</pre>
-      </div>
+  <!-- Skills Panel -->
+  <div class="window" id="skills">
+    <div class="header">skills</div>
+    <div class="content">
+      <ul>
+        <li>Malware Analysis</li>
+        <li>Reverse Engineering</li>
+        <li>Python/C++</li>
+        <li>Digital Forensics</li>
+        <li>Threat Hunting</li>
+      </ul>
     </div>
-
-    <!-- ls Panel -->
-    <div class="window" id="ls">
-      <div class="header">ls</div>
-      <div class="content">
-        <ul id="ls-list">
-          <li>TerminalOS/</li>
-          <li>RedTeamSim/</li>
-          <li>socials/</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- help Panel -->
-    <div class="window" id="help">
-      <div class="header">help</div>
-      <div class="content">
-        <p><strong>Shortcuts:</strong></p>
-        <ul>
-          <li><kbd>Ctrl + A</kbd> — Toggle whoami</li>
-          <li><kbd>Ctrl + E</kbd> — Toggle ls</li>
-          <li><kbd>Ctrl + L</kbd> — Toggle socials</li>
-          <li><kbd>Ctrl + H</kbd> — Toggle help</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Socials Panel -->
-    <div class="window" id="socials">
-      <div class="header">socials</div>
-      <div class="content">
-        <p>
-          <a href="https://github.com/gluppler" target="_blank">🐙 GitHub</a><br>
-          <a href="https://www.linkedin.com/in/gluppler" target="_blank">🔗 LinkedIn</a><br>
-          <a href="https://www.instagram.com/gluppler" target="_blank">📸 Instagram</a>
-        </p>
-      </div>
-    </div>
-
   </div>
 
   <script src="script.js"></script>
