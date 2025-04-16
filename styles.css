@@ -11,21 +11,24 @@ html, body {
 }
 
 #matrix {
-  position: fixed; top: 0; left: 0;
+  position: fixed;
+  top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: 0;
   background: black;
 }
 
 #tiling-container {
-  position: relative; z-index: 1;
+  position: relative;
   width: 100%; height: 100%;
+  z-index: 1;
 }
 
 .window {
   position: absolute;
-  min-width: 200px; min-height: 100px;
-  background: rgba(0,0,0,0.75);
+  min-width: 200px;
+  min-height: 100px;
+  background: rgba(0,0,0,0.8);
   border: 2px solid #0f0;
   border-radius: 4px;
   box-shadow: 0 0 10px #0f0;
@@ -35,7 +38,7 @@ html, body {
 
 .header {
   background: #003300;
-  padding: 4px 8px;
+  padding: 6px 10px;
   font-weight: bold;
   border-bottom: 1px solid #0f0;
   cursor: grab;
@@ -43,7 +46,7 @@ html, body {
 }
 
 .content {
-  padding: 8px;
+  padding: 10px;
   font-size: 14px;
 }
 
