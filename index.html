@@ -52,6 +52,17 @@
     </div>
   </div>
 
+  <script>
+    document.querySelectorAll('.window').forEach(win => {
+      const maxX = window.innerWidth - 300;
+      const maxY = window.innerHeight - 200;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+      win.style.left = `${x}px`;
+      win.style.top = `${y}px`;
+    });
+  </script>
+
   <script src="script.js"></script>
 </body>
 </html>
