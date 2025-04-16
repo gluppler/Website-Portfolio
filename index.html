@@ -12,44 +12,7 @@
 
   <!-- Full-Screen Terminal Tiling Container -->
   <div id="tiling-container">
-
-    <div class="window" id="about">
-      <div class="header">About</div>
-      <div class="content">
-        <p>I’m Gabe Chew, a hacker, coder, and terminal‑aesthetic enthusiast.</p>
-      </div>
-    </div>
-
-    <div class="window" id="projects">
-      <div class="header">Projects</div>
-      <div class="content">
-        <ul>
-          <li>🛠 TerminalOS – Fake Linux in the browser</li>
-          <li>🧠 RedTeamSim – Offensive security labs</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="window" id="contact">
-      <div class="header">Contact</div>
-      <div class="content">
-        <p>Email: chewzhanhongint@gmail.com</p>
-        <p>GitHub: <a href="https://github.com/gluppler" target="_blank">@gluppler</a></p>
-      </div>
-    </div>
-
-    <div class="window" id="help">
-      <div class="header">Help</div>
-      <div class="content">
-        <p><strong>Shortcuts:</strong></p>
-        <ul>
-          <li><kbd>Ctrl + A</kbd> — Toggle About</li>
-          <li><kbd>Ctrl + E</kbd> — Toggle Projects</li>
-          <li><kbd>Ctrl + L</kbd> — Toggle Contact</li>
-          <li><kbd>Ctrl + H</kbd> — Toggle Help</li>
-        </ul>
-      </div>
-    </div>
+    
 
     <div class="window" id="fact">
       <div class="header">Fact of the Day</div>
@@ -58,36 +21,35 @@
       </div>
     </div>
 
-    <div class="window" id="neofetch">
-      <div class="header">Neofetch</div>
+    <div class="window" id="whoami">
+      <div class="header">whoami</div>
       <div class="content">
-        <pre>
-        OS: GlupplerOS v1.0
-       Host: Terminal Web VM
-      Kernel: JavaScript 6.9
-          Uptime: ∞
-        Packages: All custom
-       Shell: WebTerm
-        Resolution: fluid
-        Terminal: HTML5
-       CPU: HAX 9000
-        GPU: GhostShaderFX
-        RAM: Enough to impress
-        </pre>
+        <pre id="whoami-text">gluppler</pre>
+      </div>
+    </div>
+
+    <div class="window" id="ls">
+      <div class="header">ls</div>
+      <div class="content">
+        <ul id="ls-list">
+          <li>TerminalOS/</li>
+          <li>RedTeamSim/</li>
+          <li>Socials/</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="window" id="socials">
+      <div class="header">socials</div>
+      <div class="content">
+        <p>
+          <a href="https://github.com/gluppler" target="_blank">🐙 GitHub</a><br>
+          <a href="https://www.linkedin.com/in/gluppler" target="_blank">🔗 LinkedIn</a><br>
+          <a href="https://www.instagram.com/gluppler" target="_blank">📸 Instagram</a>
+        </p>
       </div>
     </div>
   </div>
-
-  <script>
-    document.querySelectorAll('.window').forEach(win => {
-      const maxX = window.innerWidth - 300;
-      const maxY = window.innerHeight - 200;
-      const x = Math.floor(Math.random() * maxX);
-      const y = Math.floor(Math.random() * maxY);
-      win.style.left = `${x}px`;
-      win.style.top = `${y}px`;
-    });
-  </script>
 
   <script src="script.js"></script>
 </body>
