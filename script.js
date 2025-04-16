@@ -31,8 +31,10 @@ function draw() {
 }
 setInterval(draw, 33);
 
-// Draggable windows
+// Draggable windows with trailing effect and sound
 const windows = document.querySelectorAll('.window');
+const dragSound = document.getElementById('dragSound');
+
 windows.forEach(win => {
   const header = win.querySelector('.window-header');
   header.addEventListener('mousedown', onMouseDown);
@@ -46,9 +48,12 @@ function onMouseDown(e) {
   const offsetX = startX - rect.left;
   const offsetY = startY - rect.top;
 
+  if (dragSound) dragSound.play();
+
   function onMouseMove(e) {
     win.style.left = `${e.clientX - offsetX}px`;
     win.style.top = `${e.clientY - offsetY}px`;
+    createGhostTrail(win);
   }
 
   function onMouseUp() {
@@ -58,4 +63,14 @@ function onMouseDown(e) {
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
+}
+
+function createGhostTrail(win) {
+  const ghost = win.cloneNode(true);
+  ghost.classList.add('ghost-copy');
+  ghost.style.left = win.style.left;
+  ghost.style.top = win.style.top;
+  ghost.style.pointerEvents = 'none';
+  document.querySelector('.panels').appendChild(ghost);
+  setTimeout(() => ghost.remove(), 500);
 }
