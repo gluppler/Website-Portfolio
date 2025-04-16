@@ -52,6 +52,7 @@ body, html {
   resize: both;
   overflow: auto;
   cursor: move;
+  touch-action: none; /* prevents scrolling interference while dragging */
 }
 
 .window .header {
