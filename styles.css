@@ -20,6 +20,7 @@ html, body {
   background: black;
 }
 
+/* Window Styles */
 .window {
   position: absolute;
   min-width: 200px;
@@ -52,43 +53,87 @@ html, body {
   font-size: 14px;
 }
 
-.content a { 
+/* Enhanced Styles */
+.glow-text { text-shadow: 0 0 8px #0f0; }
+.aka { color: #9f9; margin: 10px 0; }
+.title { 
+  color: #0f0; 
+  border-bottom: 1px solid #0f0; 
+  padding-bottom: 10px;
+  margin: 15px 0;
+}
+.bio { font-style: italic; opacity: 0.9; }
+
+.category { 
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+}
+
+.tool-list li { 
+  padding: 5px 0;
+  list-style-type: none;
+}
+
+.skill-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+}
+
+.chevron {
+  color: #0f0;
+  margin-right: 8px;
+}
+
+.project { 
+  margin: 15px 0; 
+  padding: 10px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+}
+.project h3 { 
+  margin: 0 0 8px 0;
+  color: #9f9;
+}
+
+/* System Footer */
+.system-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,30,0,0.9);
+  padding: 10px;
+  border-top: 2px solid #0f0;
+  backdrop-filter: blur(2px);
+}
+
+.prompt { color: #0f0; }
+.command { color: #9f9; }
+.contact-methods { margin-top: 10px; }
+.email-link { 
+  color: #0f0; 
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+.social-links { 
+  margin-top: 10px; 
+  gap: 20px; 
+  display: flex;
+}
+.social-links a {
+  color: #0f0;
+  font-size: 1.2em;
+}
+
+/* Interactive Elements */
+a { 
   color: #0f0; 
   text-decoration: underline; 
 }
-
-.content a:hover { 
+a:hover { 
   color: #ff0; 
-}
-
-.header-icons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  text-align: center;
-}
-
-.header-icons .icon {
-  font-size: 24px;
-  color: #0f0;
-  transition: color 0.3s ease;
-}
-
-.header-icons .icon:hover {
-  color: #ff0;
-}
-
-#fact {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  resize: none;
-}
-
-.tool-category h3 {
-  color: #00ff00;
-  margin: 10px 0 5px 0;
-  border-bottom: 1px solid #005500;
+  text-shadow: 0 0 8px #ff0;
 }
