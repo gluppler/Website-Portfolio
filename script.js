@@ -2,6 +2,28 @@
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 let cols, drops;
+const FOOTER_MARGIN = 40;
+let footerHeight = 0;
+
+function calculateFooterHeight() {
+  const footer = document.querySelector('.footer');
+  footerHeight = footer ? footer.offsetHeight + FOOTER_MARGIN : FOOTER_MARGIN;
+}
+
+function enforceBoundaries(panel) {
+  const rect = panel.getBoundingClientRect();
+  const maxTop = window.innerHeight - rect.height - footerHeight;
+  const maxLeft = window.innerWidth - rect.width;
+
+  let top = parseInt(panel.style.top) || 0;
+  let left = parseInt(panel.style.left) || 0;
+
+  top = Math.min(Math.max(top, 20), maxTop);
+  left = Math.min(Math.max(left, 20), maxLeft);
+
+  panel.style.top = `${top}px`;
+  panel.style.left = `${left}px`;
+}
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -9,8 +31,15 @@ function resizeCanvas() {
   cols = Math.floor(canvas.width / 16);
   drops = Array(cols).fill(1);
 }
-window.addEventListener('resize', resizeCanvas);
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  calculateFooterHeight();
+  document.querySelectorAll('.window:not(#fact)').forEach(enforceBoundaries);
+});
+
 resizeCanvas();
+calculateFooterHeight();
 
 const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
@@ -40,39 +69,55 @@ function createTrail(panel) {
 function makeDraggable(panel) {
   let isDragging = false;
   let offsetX, offsetY;
-  
+  let currentPanel = null;
+
   panel.querySelector('.header').addEventListener('mousedown', (e) => {
     isDragging = true;
+    currentPanel = panel;
     offsetX = e.clientX - panel.offsetLeft;
     offsetY = e.clientY - panel.offsetTop;
     createTrail(panel);
   });
 
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    panel.style.left = `${e.clientX - offsetX}px`;
-    panel.style.top = `${e.clientY - offsetY}px`;
-    if (Date.now() % 5 === 0) createTrail(panel);
+    if (!isDragging || !currentPanel) return;
+    
+    let newTop = e.clientY - offsetY;
+    let newLeft = e.clientX - offsetX;
+    
+    const maxTop = window.innerHeight - currentPanel.offsetHeight - footerHeight;
+    const maxLeft = window.innerWidth - currentPanel.offsetWidth;
+
+    newTop = Math.min(Math.max(newTop, 20), maxTop);
+    newLeft = Math.min(Math.max(newLeft, 20), maxLeft);
+
+    currentPanel.style.top = `${newTop}px`;
+    currentPanel.style.left = `${newLeft}px`;
+    
+    if (Date.now() % 5 === 0) createTrail(currentPanel);
   });
 
   document.addEventListener('mouseup', () => {
     isDragging = false;
-    panel.style.transform = 'none';
+    currentPanel = null;
   });
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   // Make all windows except fact panel draggable
-  document.querySelectorAll('.window:not(#fact)').forEach(makeDraggable);
-
-  // Randomize positions for all except fact panel
   document.querySelectorAll('.window:not(#fact)').forEach(panel => {
-    panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
-    panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+    makeDraggable(panel);
+    
+    // Set initial position with boundaries
+    panel.style.left = Math.random() * (window.innerWidth - 300 - 40) + 20 + 'px';
+    panel.style.top = Math.random() * (window.innerHeight - 200 - footerHeight - 40) + 20 + 'px';
+    
+    // Add resize observer
+    new ResizeObserver(() => enforceBoundaries(panel)).observe(panel);
   });
 
-  // Position fact panel fixed at top center
+  // Position fact panel
   const factPanel = document.getElementById('fact');
   factPanel.style.position = 'fixed';
   factPanel.style.left = '50%';
@@ -93,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey) {
       switch(e.key.toLowerCase()) {
+        case 'h': togglePanel('help'); break;
         case 'w': togglePanel('whoami'); break;
         case 't': togglePanel('tools'); break;
         case 'p': togglePanel('projects'); break;
@@ -107,7 +153,7 @@ function togglePanel(id) {
   const panel = document.getElementById(id);
   if (panel.style.display === 'none' || !panel.style.display) {
     panel.style.display = 'block';
-    // Bring panel to front
+    enforceBoundaries(panel);
     document.querySelectorAll('.window').forEach(w => w.style.zIndex = 0);
     panel.style.zIndex = 1000;
   } else {
