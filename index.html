@@ -7,64 +7,58 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Matrix background -->
-  <canvas id="matrixCanvas"></canvas>
+  <!-- Matrix Background Canvas -->
+  <canvas id="matrix"></canvas>
 
-  <!-- Full-screen terminal container -->
-  <div id="terminal">
-    <!-- ASCII header -->
-    <pre id="header">
-       ██████╗ ██╗      █████╗ ███████╗██████╗ ██╗     ███████╗
-       ██╔══██╗██║     ██╔══██╗██╔════╝██╔══██╗██║     ██╔════╝
-       ██████╔╝██║     ███████║█████╗  ██████╔╝██║     █████╗  
-       ██╔══██╗██║     ██╔══██║██╔══╝  ██╔══██╗██║     ██╔══╝  
-       ██████╔╝███████╗██║  ██║███████╗██║  ██║███████╗███████╗
-       ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
+  <!-- Full-Screen Terminal Tiling Container -->
+  <div id="tiling-container">
+    <pre class="ascii">
+   ██████╗ ██╗      █████╗ ███████╗██████╗ ██╗     ███████╗
+   ██╔══██╗██║     ██╔══██╗██╔════╝██╔══██╗██║     ██╔════╝
+   ██████╔╝██║     ███████║█████╗  ██████╔╝██║     █████╗  
+   ██╔══██╗██║     ██╔══██║██╔══╝  ██╔══██╗██║     ██╔══╝  
+   ██████╔╝███████╗██║  ██║███████╗██║  ██║███████╗███████╗
+   ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
     </pre>
 
-    <!-- Window panels -->
-    <div class="panels">
-      <div id="about" class="window" style="top: 80px; left: 60px;">
-        <div class="window-header">About</div>
-        <div class="window-content">
-          <p>I’m Gluppler, a hacker, coder, and terminal‑aesthetic enthusiast.</p>
-        </div>
+    <div class="window" id="about">
+      <div class="header">About</div>
+      <div class="content">
+        <p>I’m Gluppler, a hacker, coder, and terminal‑aesthetic enthusiast.</p>
       </div>
+    </div>
 
-      <div id="projects" class="window" style="top: 80px; left: 480px;">
-        <div class="window-header">Projects</div>
-        <div class="window-content">
-          <ul>
-            <li>🛠 TerminalOS – Fake Linux in the browser</li>
-            <li>🧠 RedTeamSim – Offensive security labs</li>
-          </ul>
-        </div>
+    <div class="window" id="projects">
+      <div class="header">Projects</div>
+      <div class="content">
+        <ul>
+          <li>🛠 TerminalOS – Fake Linux in the browser</li>
+          <li>🧠 RedTeamSim – Offensive security labs</li>
+        </ul>
       </div>
+    </div>
 
-      <div id="contact" class="window" style="top: 320px; left: 60px;">
-        <div class="window-header">Contact</div>
-        <div class="window-content">
-          <p>Email: gluppler@pm.me</p>
-          <p>GitHub: <a href="https://github.com/gluppler">@gluppler</a></p>
-        </div>
+    <div class="window" id="contact">
+      <div class="header">Contact</div>
+      <div class="content">
+        <p>Email: gluppler@pm.me</p>
+        <p>GitHub: <a href="https://github.com/gluppler" target="_blank">@gluppler</a></p>
       </div>
+    </div>
 
-      <div id="help" class="window" style="top: 320px; left: 480px;">
-        <div class="window-header">Help</div>
-        <div class="window-content">
-          <p><strong>Shortcuts:</strong></p>
-          <ul>
-            <li><kbd>Ctrl + A</kbd> — Toggle About</li>
-            <li><kbd>Ctrl + E</kbd> — Toggle Projects</li>
-            <li><kbd>Ctrl + L</kbd> — Toggle Contact</li>
-            <li><kbd>Ctrl + H</kbd> — Toggle Help</li>
-          </ul>
-        </div>
+    <div class="window" id="help">
+      <div class="header">Help</div>
+      <div class="content">
+        <p><strong>Shortcuts:</strong></p>
+        <ul>
+          <li><kbd>Ctrl + A</kbd> — Toggle About</li>
+          <li><kbd>Ctrl + E</kbd> — Toggle Projects</li>
+          <li><kbd>Ctrl + L</kbd> — Toggle Contact</li>
+          <li><kbd>Ctrl + H</kbd> — Toggle Help</li>
+        </ul>
       </div>
     </div>
   </div>
-
-  <audio id="dragSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9e39200f42.mp3?filename=swipe-whoosh-112903.mp3"></audio>
 
   <script src="script.js"></script>
 </body>
