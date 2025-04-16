@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.cdnfonts.com/css/terminal');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 html, body {
   margin: 0;
   padding: 0;
   width: 100%; height: 100%;
   background: black;
-  font-family: 'Fira Mono', monospace;
+  font-family: 'Terminal', 'Fira Mono', monospace;
   overflow: hidden;
   color: #0f0;
 }
@@ -18,37 +20,69 @@ html, body {
   background: black;
 }
 
-#tiling-container {
-  position: relative;
-  width: 100%; height: 100%;
-  z-index: 1;
-}
-
 .window {
   position: absolute;
   min-width: 200px;
   min-height: 100px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.9);
   border: 2px solid #0f0;
   border-radius: 4px;
   box-shadow: 0 0 10px #0f0;
   resize: both;
   overflow: auto;
+  transition: transform 0.1s ease-out;
+}
+
+.window.trailing {
+  opacity: 0.4;
+  transform: scale(0.9);
+  pointer-events: none;
 }
 
 .header {
-  background: #003300;
-  padding: 6px 10px;
-  font-weight: bold;
+  background: #002200;
+  padding: 8px 12px;
   border-bottom: 1px solid #0f0;
-  cursor: grab;
+  cursor: move;
   user-select: none;
 }
 
 .content {
-  padding: 10px;
+  padding: 15px;
   font-size: 14px;
 }
 
-.content a { color: #0f0; text-decoration: underline; }
-.content a:hover { color: #ff0; }
+.content a { 
+  color: #0f0; 
+  text-decoration: underline; 
+}
+
+.content a:hover { 
+  color: #ff0; 
+}
+
+.header-icons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  text-align: center;
+}
+
+.header-icons .icon {
+  font-size: 24px;
+  color: #0f0;
+  transition: color 0.3s ease;
+}
+
+.header-icons .icon:hover {
+  color: #ff0;
+}
+
+#fact {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  resize: none;
+}
