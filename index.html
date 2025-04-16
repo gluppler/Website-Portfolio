@@ -2,28 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Gluppler‑Site — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gluppler Terminal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Matrix background -->
   <canvas id="matrixCanvas"></canvas>
 
-  <!-- Single panel with navigation -->
-  <div class="window">
-    <div class="window-header">Home</div>
-    <div class="window-content">
-      <p>Welcome to Gluppler‑Site!</p>
-      <ul>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-      </ul>
-      <p><em>Or use shortcuts:</em> Ctrl +A (About), Ctrl + E (Projects), Ctrl + H (Home)</p>
+  <!-- Full-screen terminal with window panels -->
+  <div id="terminal">
+    <!-- ASCII header -->
+    <pre id="header">
+       ██████╗ ██╗      █████╗ ███████╗██████╗ ██╗     ███████╗
+       ██╔══██╗██║     ██╔══██╗██╔════╝██╔══██╗██║     ██╔════╝
+       ██████╔╝██║     ███████║█████╗  ██████╔╝██║     █████╗  
+       ██╔══██╗██║     ██╔══██║██╔══╝  ██╔══██╗██║     ██╔══╝  
+       ██████╔╝███████╗██║  ██║███████╗██║  ██║███████╗███████╗
+       ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
+    </pre>
+
+    <!-- Panels container -->
+    <div class="panels">
+      <div id="about" class="window">
+        <div class="window-header">About</div>
+        <div class="window-content">
+          <p>I’m Gluppler, a hacker, coder, and terminal‑aesthetic enthusiast.</p>
+        </div>
+      </div>
+
+      <div id="projects" class="window">
+        <div class="window-header">Projects</div>
+        <div class="window-content">
+          <ul>
+            <li>🛠 TerminalOS – Fake Linux in the browser</li>
+            <li>🧠 RedTeamSim – Offensive security labs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="contact" class="window">
+        <div class="window-header">Contact</div>
+        <div class="window-content">
+          <p>Email: chewzhanhongint@gmail.com</p>
+          <p>GitHub: <a href="https://github.com/gluppler">@gluppler</a></p>
+        </div>
+      </div>
+
+      <div id="help" class="window">
+        <div class="window-header">Help</div>
+        <div class="window-content">
+          <p><strong>Shortcuts:</strong></p>
+          <ul>
+            <li><kbd>Ctrl + A</kbd> — Toggle About</li>
+            <li><kbd>Ctrl + E</kbd> — Toggle Projects</li>
+            <li><kbd>Ctrl + L</kbd> — Toggle Contact</li>
+            <li><kbd>Ctrl + H</kbd> — Toggle Help</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
