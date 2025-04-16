@@ -1,33 +1,34 @@
-// Matrix Background
+// Matrix background animation
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-let trails = [];
+let cols, drops; // Changed to let variables
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  cols = Math.floor(canvas.width / 16); // Recalculate columns on resize
+  drops = Array(cols).fill(1); // Reinitialize drops array with new columns count
 }
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+resizeCanvas(); // Initial setup
 
-const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-const cols = Math.floor(canvas.width / 15);
-const drops = Array(cols).fill(1);
+const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  ctx.fillStyle = 'rgba(0,0,0,0.1)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#0f0';
-  ctx.font = '15px Terminal';
-  
+  ctx.fillStyle = '#0f0'; ctx.font = '16px monospace';
   drops.forEach((y,i) => {
-    const char = chars[Math.floor(Math.random()*chars.length)];
-    ctx.fillText(char, i*15, y*15);
-    drops[i] = y > canvas.height/15 ? 0 : y+1;
+    const char = katakana[Math.floor(Math.random()*katakana.length)];
+    ctx.fillText(char, i*16, y*16);
+    drops[i] = (y*16 > canvas.height && Math.random()>0.975) ? 0 : y+1;
   });
   requestAnimationFrame(drawMatrix);
 }
+
 drawMatrix();
+
+// ... Rest of the code remains unchanged ...
 
 // Panel Trail Effect
 function createTrail(panel) {
