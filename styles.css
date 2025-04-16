@@ -98,12 +98,6 @@ html, body {
   color: #9f9;
 }
 
-/* Contact Panel */
-#contact .header::before {
-  content: "cat ~/contact.txt";
-  color: #0f0;
-}
-
 #contact .social-links {
   display: flex;
   gap: 15px;
