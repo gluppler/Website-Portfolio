@@ -86,3 +86,9 @@ html, body {
   z-index: 1000;
   resize: none;
 }
+
+.tool-category h3 {
+  color: #00ff00;
+  margin: 10px 0 5px 0;
+  border-bottom: 1px solid #005500;
+}
