@@ -9,83 +9,91 @@
 <body>
   <canvas id="matrix"></canvas>
 
-  <!-- Fact Panel (Fixed Top Center) -->
+  <!-- Fact Panel -->
   <div class="window" id="fact">
-    <div class="header">Fact of the Day</div>
+    <div class="header">fortune</div>
     <div class="content">
-      <p id="fact-text">Loading facts...</p>
+      <p id="fact-text">Initializing fortune database...</p>
     </div>
   </div>
 
-  <!-- Contact Panel -->
-  <div class="window" id="contact">
-    <div class="header">Contact</div>
+  <!-- About Panel -->
+  <div class="window" id="whoami">
+    <div class="header">whoami</div>
     <div class="content">
-      <p>Gabe Chew</p>
-      <p>Aka Gluppler</p>
-      <p>Student & Aspiring Reverse Engineer</p>
-      <p>📧 <a href="mailto:chewzhanhongint@gmail.com">chewzhanhongint@gmail.com</a></p>
-      <p>📍 Digital Space</p>
+      <p class="glow-text">Gabe Chew</p>
+      <p class="aka">AKA <span class="glow-text">Gluppler</span></p>
+      <div class="divider"></div>
+      <p class="title">[ Reverse Engineer / Malware Analyst ]</p>
+      <p class="bio">Passionate about dissecting binary realities and fortifying cyber frontiers. Specializing in turning malware inside-out and hardening systems.</p>
     </div>
   </div>
 
-  <!-- Socials Panel -->
-  <div class="window" id="socials">
-    <div class="header">Socials</div>
+  <!-- Technical Expertise Panel -->
+  <div class="window" id="tools">
+    <div class="header">cd ~/arsenal</div>
     <div class="content">
-      <div class="header-icons">
-        <a aria-label="GitHub" target="_blank" href="https://github.com/gluppler">
-          <i class="icon fa fa-github-alt"></i>
-        </a>
-        <a aria-label="LinkedIn" href="https://www.linkedin.com/in/gabechewzhanhong/">
-          <i class="icon fa fa-linkedin"></i>
-        </a>
-        <a aria-label="CTF Profile" href="https://www.instagram.com/gabeczh/">
-          <i class="icon fa fa-instagram"></i>
-        </a>
+      <div class="category">
+        <h3>Tools</h3>
+        <ul class="tool-list">
+          <li><i class="fa fa-wrench"></i> Radare2</li>
+          <li><i class="fa fa-wrench"></i> Pwndbg</li>
+          <li><i class="fa fa-wrench"></i> strace</li>
+          <li><i class="fa fa-wrench"></i> ltrace</li>
+          <li><i class="fa fa-wrench"></i> objdump</li>
+        </ul>
+      </div>
+
+      <div class="category">
+        <h3>Core Competencies</h3>
+        <ul class="skill-grid">
+          <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
+          <li><span class="chevron">▶</span> Malware Deconstruction</li>
+          <li><span class="chevron">▶</span> Exploit Development</li>
+          <li><span class="chevron">▶</span> Cryptographic Analysis</li>
+        </ul>
       </div>
     </div>
   </div>
 
-  <!-- Skills Panel -->
-  <div class="window" id="skills">
-    <div class="header">skills</div>
+  <!-- Projects Panel -->
+  <div class="window" id="projects">
+    <div class="header">cd ~/projects</div>
     <div class="content">
-      <ul>
-        <li>Low-level System Programming</li>
-        <li>Exploit Mitigation Bypass (ASLR, NX, Canary)</li>
-        <li>Custom Tool Development</li>
-        <li>Process Tracing &amp; Inspection</li>
-        <li>Shellcode Crafting</li>
-      </ul>
+      <div class="project">
+        <h3><i class="fa fa-bug"></i> Malware Autopsy Series</h3>
+        <p>Deconstructed 50+ malware samples, documenting C2 protocols and persistence mechanisms</p>
+      </div>
+      
+      <div class="project">
+        <h3><i class="fa fa-shield"></i> Ransomware Decryptor Toolkit</h3>
+        <p>Developed custom tools for analyzing and decrypting various ransomware strains</p>
+      </div>
+
+      <div class="project">
+        <h3><i class="fa fa-microchip"></i> IoT Firmware Reverse Engineering</h3>
+        <p>Uncovered vulnerabilities in embedded device communication protocols</p>
+      </div>
     </div>
   </div>
 
-  <!-- Updated Tools Panel -->
-<div class="window" id="tools">
-  <div class="header">Toolchain</div>
-  <div class="content">
-    <div class="tool-category">
-      <h3>Debugging/RE</h3>
-      <div class="tool-grid">
-        <span class="tool">pwndbg</span>
-        <span class="tool">radare2</span>
-        <span class="tool">GEF</span>
-        <span class="tool">GDB</span>
-      </div>
-    </div>
-    
-    <div class="tool-category">
-      <h3>Analysis</h3>
-      <div class="tool-grid">
-        <span class="tool">objdump</span>
-        <span class="tool">strace</span>
-        <span class="tool">ltrace</span>
-        <span class="tool">readelf</span>
+  <!-- Contact Footer -->
+  <div class="system-footer">
+    <div class="content">
+      <span class="prompt">root@gluppler:~# </span>
+      <span class="command">contact --methods</span>
+      <div class="contact-methods">
+        <a href="mailto:chewzhanhongint@gmail.com" class="email-link">
+          <i class="fa fa-envelope"></i> chewzhanhongint@gmail.com
+        </a>
+        <div class="social-links">
+          <a href="https://github.com/gluppler" target="_blank"><i class="fa fa-github-alt"></i></a>
+          <a href="https://www.linkedin.com/in/gabechewzhanhong/" target="_blank"><i class="fa fa-linkedin"></i></a>
+          <a href="https://app.hackthebox.com/profile/XXXXXX" target="_blank"><i class="fa fa-code"></i></a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <script src="script.js"></script>
 </body>
