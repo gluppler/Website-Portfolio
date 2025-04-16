@@ -106,5 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => {
       console.error('Error fetching fact:', error);
     });
+    // Touch events
+  header.addEventListener('touchstart', e => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - win.offsetLeft;
+    offsetY = touch.clientY - win.offsetTop;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (isDragging) {
+      const touch = e.touches[0];
+      win.style.left = (touch.clientX - offsetX) + 'px';
+      win.style.top = (touch.clientY - offsetY) + 'px';
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+  
 });
 
