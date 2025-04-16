@@ -12,15 +12,16 @@
 
   <!-- Full-Screen Terminal Tiling Container -->
   <div id="tiling-container">
-    
 
-    <div class="window" id="fact">
+    <!-- Fact of the Day (fixed top center) -->
+    <div class="window" id="fact" style="position:absolute; top:20px; left:50%; transform:translateX(-50%);">
       <div class="header">Fact of the Day</div>
       <div class="content">
         <p id="fact-text">Loading random fact...</p>
       </div>
     </div>
 
+    <!-- whoami Panel -->
     <div class="window" id="whoami">
       <div class="header">whoami</div>
       <div class="content">
@@ -28,17 +29,33 @@
       </div>
     </div>
 
+    <!-- ls Panel -->
     <div class="window" id="ls">
       <div class="header">ls</div>
       <div class="content">
         <ul id="ls-list">
           <li>TerminalOS/</li>
           <li>RedTeamSim/</li>
-          <li>Socials/</li>
+          <li>socials/</li>
         </ul>
       </div>
     </div>
 
+    <!-- help Panel -->
+    <div class="window" id="help">
+      <div class="header">help</div>
+      <div class="content">
+        <p><strong>Shortcuts:</strong></p>
+        <ul>
+          <li><kbd>Ctrl + A</kbd> — Toggle whoami</li>
+          <li><kbd>Ctrl + E</kbd> — Toggle ls</li>
+          <li><kbd>Ctrl + L</kbd> — Toggle socials</li>
+          <li><kbd>Ctrl + H</kbd> — Toggle help</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Socials Panel -->
     <div class="window" id="socials">
       <div class="header">socials</div>
       <div class="content">
@@ -49,6 +66,7 @@
         </p>
       </div>
     </div>
+
   </div>
 
   <script src="script.js"></script>
