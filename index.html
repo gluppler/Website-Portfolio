@@ -2,39 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gluppler-Site</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Gluppler‑Site — Home</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="dashboard">
-    <!-- ASCII Logo Header -->
-    <pre id="header" class="alpha-header">
-         ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-         ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z
-         ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z
-         ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z
-         ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
-         ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
-    </pre>
+  <!-- Matrix background -->
+  <canvas id="matrixCanvas"></canvas>
 
-    <!-- Buttons Section -->
-    <div id="buttons" class="alpha-buttons">
-      <div class="button"><span class="alpha-shortcut">Ctrl+A</span> About</div>
-      <div class="button"><span class="alpha-shortcut">Ctrl+L</span> Contact</div>
-      <div class="button"><span class="alpha-shortcut">Ctrl+E</span> Projects</div>
-      <div class="button"><span class="alpha-shortcut">Ctrl+H</span> Help</div>
-      <div class="button"><span class="alpha-shortcut">Ctrl+Q</span> Quit</div>
-    </div>
-
-    <!-- Content Area -->
-    <div id="content" class="alpha-content"></div>
-
-    <!-- Footer -->
-    <div id="footer" class="alpha-footer">
-      ⚡ gluppler-site loaded - waiting for commands
+  <!-- Single panel with navigation -->
+  <div class="window">
+    <div class="window-header">Home</div>
+    <div class="window-content">
+      <p>Welcome to Gluppler‑Site!</p>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+      </ul>
+      <p><em>Or use shortcuts:</em> Ctrl +A (About), Ctrl + E (Projects), Ctrl + H (Home)</p>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
