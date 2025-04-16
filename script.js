@@ -1,23 +1,24 @@
 // Matrix background animation
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-let cols, drops; // Changed to let variables
+let cols, drops;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  cols = Math.floor(canvas.width / 16); // Recalculate columns on resize
-  drops = Array(cols).fill(1); // Reinitialize drops array with new columns count
+  cols = Math.floor(canvas.width / 16);
+  drops = Array(cols).fill(1);
 }
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas(); // Initial setup
+resizeCanvas();
 
 const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
 function drawMatrix() {
   ctx.fillStyle = 'rgba(0,0,0,0.1)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#0f0'; ctx.font = '16px monospace';
+  ctx.fillStyle = '#0f0'; 
+  ctx.font = '16px monospace';
   drops.forEach((y,i) => {
     const char = katakana[Math.floor(Math.random()*katakana.length)];
     ctx.fillText(char, i*16, y*16);
@@ -25,23 +26,17 @@ function drawMatrix() {
   });
   requestAnimationFrame(drawMatrix);
 }
-
 drawMatrix();
-
-// ... Rest of the code remains unchanged ...
 
 // Panel Trail Effect
 function createTrail(panel) {
   const clone = panel.cloneNode(true);
   clone.classList.add('trailing');
   document.body.appendChild(clone);
-  
-  setTimeout(() => {
-    clone.remove();
-  }, 200);
+  setTimeout(() => clone.remove(), 200);
 }
 
-// Draggable Panels with Trail
+// Draggable Panels
 function makeDraggable(panel) {
   let isDragging = false;
   let offsetX, offsetY;
@@ -50,19 +45,13 @@ function makeDraggable(panel) {
     isDragging = true;
     offsetX = e.clientX - panel.offsetLeft;
     offsetY = e.clientY - panel.offsetTop;
-    
-    // Create initial trail
     createTrail(panel);
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
-    
-    // Update position
     panel.style.left = `${e.clientX - offsetX}px`;
     panel.style.top = `${e.clientY - offsetY}px`;
-    
-    // Create trail effect
     if (Date.now() % 5 === 0) createTrail(panel);
   });
 
@@ -72,21 +61,17 @@ function makeDraggable(panel) {
   });
 }
 
-// Toggle Visibility
-function togglePanel(id) {
-  const panel = document.getElementById(id);
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-}
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  // Make panels draggable
-  document.querySelectorAll('.window:not(#fact)').forEach(makeDraggable);
-  
+  // Make all windows draggable
+  document.querySelectorAll('.window').forEach(makeDraggable);
+
   // Randomize positions
-  document.querySelectorAll('.window:not(#fact)').forEach(panel => {
-    panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
-    panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+  document.querySelectorAll('.window').forEach(panel => {
+    if(panel.id !== 'fact') {
+      panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
+      panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+    }
   });
 
   // Fetch Fact
@@ -103,10 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey) {
       switch(e.key.toLowerCase()) {
-        case 'c': togglePanel('contact'); break;
-        case 's': togglePanel('socials'); break;
-        case 'k': togglePanel('skills'); break;
+        case 'w': togglePanel('whoami'); break;
+        case 't': togglePanel('tools'); break;
+        case 'p': togglePanel('projects'); break;
       }
     }
   });
 });
+
+// Toggle Visibility
+function togglePanel(id) {
+  const panel = document.getElementById(id);
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
