@@ -63,16 +63,21 @@ function makeDraggable(panel) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  // Make all windows draggable
-  document.querySelectorAll('.window').forEach(makeDraggable);
+  // Make all windows except fact panel draggable
+  document.querySelectorAll('.window:not(#fact)').forEach(makeDraggable);
 
-  // Randomize positions
-  document.querySelectorAll('.window').forEach(panel => {
-    if(panel.id !== 'fact') {
-      panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
-      panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
-    }
+  // Randomize positions for all except fact panel
+  document.querySelectorAll('.window:not(#fact)').forEach(panel => {
+    panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
+    panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
   });
+
+  // Position fact panel fixed at top center
+  const factPanel = document.getElementById('fact');
+  factPanel.style.position = 'fixed';
+  factPanel.style.left = '50%';
+  factPanel.style.transform = 'translateX(-50%)';
+  factPanel.style.top = '20px';
 
   // Fetch Fact
   fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
@@ -91,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'w': togglePanel('whoami'); break;
         case 't': togglePanel('tools'); break;
         case 'p': togglePanel('projects'); break;
+        case 'c': togglePanel('contact'); break;
       }
     }
   });
@@ -99,5 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Toggle Visibility
 function togglePanel(id) {
   const panel = document.getElementById(id);
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if (panel.style.display === 'none' || !panel.style.display) {
+    panel.style.display = 'block';
+    // Bring panel to front
+    document.querySelectorAll('.window').forEach(w => w.style.zIndex = 0);
+    panel.style.zIndex = 1000;
+  } else {
+    panel.style.display = 'none';
+  }
 }
