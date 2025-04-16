@@ -112,21 +112,18 @@ html, body {
   transition: all 0.3s ease;
 }
 
-/* ID Command Footer */
+/* ID Command Footer - Minimal version */
 .footer {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: auto;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 8px 15px;
-  border-radius: 4px;
-  border: 1px solid #0f0;
   font-family: 'Fira Mono', monospace;
   font-size: 14px;
   color: #0f0;
   z-index: 999;
+  background: transparent;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
 }
 
 .footer pre {
@@ -135,7 +132,7 @@ html, body {
   white-space: pre-wrap;
 }
 
-/* Fixed Fact Panel */
+/* Fact Panel - Revert to regular window styling */
 #fact {
   position: fixed;
   top: 20px;
@@ -144,10 +141,10 @@ html, body {
   z-index: 1000;
   width: 400px;
   resize: none;
-  border: none;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  /* Remove special styles */
+  box-shadow: 0 0 10px #0f0;
+  border: 2px solid #0f0;
 }
-
 /* Interactive Elements */
 a { 
   color: #0f0; 
