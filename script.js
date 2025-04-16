@@ -1,6 +1,8 @@
-// Matrix background animation
+// Matrix Background
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
+let trails = [];
+
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -8,77 +10,102 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-const cols = Math.floor(canvas.width / 16);
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const cols = Math.floor(canvas.width / 15);
 const drops = Array(cols).fill(1);
 
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  ctx.fillStyle = 'rgba(0,0,0,0.05)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#0f0'; ctx.font = '16px monospace';
+  ctx.fillStyle = '#0f0';
+  ctx.font = '15px Terminal';
+  
   drops.forEach((y,i) => {
-    const char = katakana[Math.floor(Math.random()*katakana.length)];
-    ctx.fillText(char, i*16, y*16);
-    drops[i] = (y*16 > canvas.height && Math.random()>0.975) ? 0 : y+1;
+    const char = chars[Math.floor(Math.random()*chars.length)];
+    ctx.fillText(char, i*15, y*15);
+    drops[i] = y > canvas.height/15 ? 0 : y+1;
   });
   requestAnimationFrame(drawMatrix);
 }
-
 drawMatrix();
 
-// Randomize positions for all except #fact
-function randomizePositions() {
-  document.querySelectorAll('.window:not(#fact)').forEach(win => {
-    const maxX = window.innerWidth - win.offsetWidth - 20;
-    const maxY = window.innerHeight - win.offsetHeight - 20;
-    win.style.left = Math.random() * maxX + 'px';
-    win.style.top  = Math.random() * maxY + 'px';
+// Panel Trail Effect
+function createTrail(panel) {
+  const clone = panel.cloneNode(true);
+  clone.classList.add('trailing');
+  document.body.appendChild(clone);
+  
+  setTimeout(() => {
+    clone.remove();
+  }, 200);
+}
+
+// Draggable Panels with Trail
+function makeDraggable(panel) {
+  let isDragging = false;
+  let offsetX, offsetY;
+  
+  panel.querySelector('.header').addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - panel.offsetLeft;
+    offsetY = e.clientY - panel.offsetTop;
+    
+    // Create initial trail
+    createTrail(panel);
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    
+    // Update position
+    panel.style.left = `${e.clientX - offsetX}px`;
+    panel.style.top = `${e.clientY - offsetY}px`;
+    
+    // Create trail effect
+    if (Date.now() % 5 === 0) createTrail(panel);
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    panel.style.transform = 'none';
   });
 }
 
-// Make windows draggable (mouse + touch)
-function makeDraggable(win) {
-  const header = win.querySelector('.header');
-  let dragging = false, offsetX = 0, offsetY = 0;
-
-  const start = (x, y) => { dragging = true; offsetX = x - win.offsetLeft; offsetY = y - win.offsetTop; };
-  const move = (x, y) => { if (dragging) { win.style.left = x - offsetX + 'px'; win.style.top = y - offsetY + 'px'; }};
-  const end = () => { dragging = false; };
-
-  header.addEventListener('mousedown', e => { start(e.clientX, e.clientY); e.preventDefault(); });
-  document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
-  document.addEventListener('mouseup', end);
-
-  header.addEventListener('touchstart', e => { const t = e.touches[0]; start(t.clientX, t.clientY); e.preventDefault(); }, { passive: false });
-  document.addEventListener('touchmove', e => { const t = e.touches[0]; move(t.clientX, t.clientY); e.preventDefault(); }, { passive: false });
-  document.addEventListener('touchend', end);
-}
-
-// Toggle visibility
-function toggle(id) {
-  const w = document.getElementById(id);
-  w.style.display = w.style.display === 'none' ? 'block' : 'none';
+// Toggle Visibility
+function togglePanel(id) {
+  const panel = document.getElementById(id);
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 }
 
 // Initialize
-window.addEventListener('DOMContentLoaded', () => {
-  randomizePositions();
+document.addEventListener('DOMContentLoaded', () => {
+  // Make panels draggable
   document.querySelectorAll('.window:not(#fact)').forEach(makeDraggable);
+  
+  // Randomize positions
+  document.querySelectorAll('.window:not(#fact)').forEach(panel => {
+    panel.style.left = Math.random() * (window.innerWidth - 300) + 'px';
+    panel.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+  });
 
-  // Fetch Fact of the Day
+  // Fetch Fact
   fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
-    .then(res => res.json())
-    .then(data => { document.getElementById('fact-text').textContent = data.text; })
-    .catch(() => { document.getElementById('fact-text').textContent = 'Failed to load fact.'; });
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('fact-text').textContent = data.text;
+    })
+    .catch(() => {
+      document.getElementById('fact-text').textContent = 'Error loading fact - check your connection';
+    });
 
-  // Keyboard shortcuts
-  window.addEventListener('keydown', e => {
+  // Keyboard Shortcuts
+  window.addEventListener('keydown', (e) => {
     if (e.ctrlKey) {
-      const key = e.key.toLowerCase();
-      if (key === 'a') toggle('whoami');
-      if (key === 'e') toggle('ls');
-      if (key === 'l') toggle('socials');
-      if (key === 'h') toggle('help');
+      switch(e.key.toLowerCase()) {
+        case 'c': togglePanel('contact'); break;
+        case 's': togglePanel('socials'); break;
+        case 'k': togglePanel('skills'); break;
+      }
     }
   });
 });
