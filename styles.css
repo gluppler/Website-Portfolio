@@ -98,15 +98,37 @@ html, body {
   color: #9f9;
 }
 
+/* Contact Panel */
+#contact .header::before {
+  content: "cat ~/contact.txt";
+  color: #0f0;
+}
+
+#contact .social-links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+#contact .social-links a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
 /* ID Command Footer */
 .footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
   background: rgba(0, 0, 0, 0.7);
-  border-top: 1px solid #0f0;
+  padding: 8px 15px;
+  border-radius: 4px;
+  border: 1px solid #0f0;
   font-family: 'Fira Mono', monospace;
   font-size: 14px;
   color: #0f0;
@@ -119,28 +141,6 @@ html, body {
   white-space: pre-wrap;
 }
 
-/* Contact Panel */
-#contact {
-  position: absolute;
-  width: 300px;
-}
-
-#contact .social-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
-}
-/* Interactive Elements */
-a { 
-  color: #0f0; 
-  text-decoration: underline; 
-}
-a:hover { 
-  color: #ff0; 
-  text-shadow: 0 0 8px #ff0;
-}
-
 /* Fixed Fact Panel */
 #fact {
   position: fixed;
@@ -150,5 +150,16 @@ a:hover {
   z-index: 1000;
   width: 400px;
   resize: none;
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
+/* Interactive Elements */
+a { 
+  color: #0f0; 
+  text-decoration: underline; 
+}
+a:hover { 
+  color: #ff0; 
+  text-shadow: 0 0 8px #ff0;
+}
