@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gabe Terminal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <canvas id="matrix"></canvas>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu">
+    <button class="mobile-btn" onclick="togglePanel('help')">☰ Menu</button>
+  </div>
 
   <!-- Fact Panel -->
   <div class="window" id="fact">
@@ -43,7 +48,6 @@
           <li><i class="fa fa-wrench"></i> objdump</li>
         </ul>
       </div>
-
       <div class="category">
         <h3>Core Competencies</h3>
         <ul class="skill-grid">
@@ -64,12 +68,10 @@
         <h3><i class="fa fa-bug"></i> Malware Autopsy Series</h3>
         <p>Deconstructed 50+ malware samples, documenting C2 protocols and persistence mechanisms</p>
       </div>
-      
       <div class="project">
         <h3><i class="fa fa-shield"></i> Ransomware Decryptor Toolkit</h3>
         <p>Developed custom tools for analyzing and decrypting various ransomware strains</p>
       </div>
-
       <div class="project">
         <h3><i class="fa fa-microchip"></i> IoT Firmware Reverse Engineering</h3>
         <p>Uncovered vulnerabilities in embedded device communication protocols</p>
@@ -90,22 +92,23 @@
     </div>
   </div>
 
-  <!-- Add Help Panel -->
-<div class="window" id="help">
-  <div class="header">help --usage</div>
-  <div class="content">
-    <div class="command-list">
-      <p><span class="chevron">▶</span> Ctrl + H - Toggle this help</p>
-      <p><span class="chevron">▶</span> Ctrl + C - Contact panel</p>
-      <p><span class="chevron">▶</span> Ctrl + W - Whoami panel</p>
-      <p><span class="chevron">▶</span> Ctrl + T - Tools panel</p>
-      <p><span class="chevron">▶</span> Ctrl + P - Projects panel</p>
-      <div class="divider"></div>
-      <p><span class="chevron">▶</span> Click & drag headers to move</p>
-      <p><span class="chevron">▶</span> Resize panels from corners</p>
+  <!-- Help Panel -->
+  <div class="window" id="help">
+    <div class="header">help --usage</div>
+    <div class="content">
+      <div class="command-list">
+        <p><span class="chevron">▶</span> Ctrl+H / Menu - Toggle help</p>
+        <p><span class="chevron">▶</span> Ctrl+C - Contact panel</p>
+        <p><span class="chevron">▶</span> Ctrl+W - Whoami panel</p>
+        <p><span class="chevron">▶</span> Ctrl+T - Tools panel</p>
+        <p><span class="chevron">▶</span> Ctrl+P - Projects panel</p>
+        <div class="divider"></div>
+        <p><span class="chevron">▶</span> Drag headers to move</p>
+        <p><span class="chevron">▶</span> Resize from corners (desktop)</p>
+        <p><span class="chevron">▶</span> Tap icons to interact</p>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- ID Command Footer -->
   <div class="footer" id="id-output">
