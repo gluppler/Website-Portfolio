@@ -5,83 +5,6 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: transparent;
-  font-family: monospace;
-  color: #0F0;
-}
-
-/* Matrix canvas */
-#matrixCanvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  background: black;
-}
-
-/* Terminal container */
-#terminal {
-  position: relative;
-  width: 100%; height: 100%;
-  overflow: hidden;
-}
-
-/* ASCII header */
-#header {
-  margin: 20px;
-  line-height: 1;
-  color: #0F0;
-  text-align: center;
-}
-
-/* Panels container is relative for absolute children */
-.panels {
-  position: relative;
-  width: 100%; height: calc(100% - 200px);
-}
-
-/* Window styling */
-.window {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.85);
-  border: 2px solid #0F0;
-  border-radius: 4px;
-  resize: both;
-  overflow: auto;
-  width: 350px;
-  height: 200px;
-  box-shadow: 0 0 10px #0F0;
-}
-
-.window-header {
-  background-color: #0F0;
-  color: #000;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  cursor: move;
-  user-select: none;
-}
-
-.window-content {
-  padding: 1rem;
-}
-
-.window-content a {
-  color: #0F0;
-  text-decoration: underline;
-}
-
-.window-content a:hover {
-  color: #FF0;
-}
-```css
-/* Reset and base */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
   background: black;
   font-family: monospace;
   color: #0F0;
@@ -149,4 +72,21 @@ html, body {
 
 .window-content a:hover {
   color: #FF0;
+}
+
+.ghost-copy {
+  position: absolute;
+  opacity: 0.1;
+  transform: scale(1.01);
+  pointer-events: none;
+  animation: fadeOut 0.5s forwards;
+  z-index: 0;
+  border: 2px dashed #0F0;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
 }
