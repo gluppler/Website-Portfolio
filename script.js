@@ -1,86 +1,94 @@
-// Matrix digital rain effect
-const canvas = document.getElementById('matrixCanvas');
+// Matrix background animation
+const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-const fontSize = 16;
-let columns = Math.floor(canvas.width / fontSize);
-let drops = Array(columns).fill(1);
+const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+const columns = Math.floor(canvas.width / 16);
+const drops = Array(columns).fill(1);
 
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#0F0';
-  ctx.font = `${fontSize}px monospace`;
+  ctx.fillStyle = '#0f0';
+  ctx.font = '16px monospace';
 
-  drops.forEach((y, i) => {
-    const text = letters.charAt(Math.floor(Math.random() * letters.length));
-    ctx.fillText(text, i * fontSize, y * fontSize);
-    if (y * fontSize > canvas.height && Math.random() > 0.975) {
+  for (let i = 0; i < drops.length; i++) {
+    const char = katakana[Math.floor(Math.random() * katakana.length)];
+    ctx.fillText(char, i * 16, drops[i] * 16);
+
+    if (drops[i] * 16 > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     }
+
     drops[i]++;
+  }
+  requestAnimationFrame(drawMatrix);
+}
+
+// Drag-and-drop windows + ghost clone
+const windows = document.querySelectorAll('.window');
+
+windows.forEach(win => {
+  let offsetX, offsetY, isDragging = false;
+  const header = win.querySelector('.header');
+
+  header.addEventListener('mousedown', e => {
+    isDragging = true;
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+    const clone = win.cloneNode(true);
+    clone.classList.add('ghost');
+    clone.style.opacity = '0.2';
+    document.body.appendChild(clone);
+    win.cloneElement = clone;
   });
-}
-setInterval(drawMatrix, 33);
 
-// Clone trail logic
-function createGhostClone(original) {
-  const clone = original.cloneNode(true);
-  clone.classList.add('ghost');
-  clone.style.pointerEvents = 'none';
-  clone.style.opacity = '0.3';
-  document.body.appendChild(clone);
-  const rect = original.getBoundingClientRect();
-  clone.style.position = 'absolute';
-  clone.style.left = `${rect.left}px`;
-  clone.style.top = `${rect.top}px`;
-  clone.style.width = `${rect.width}px`;
-  clone.style.height = `${rect.height}px`;
-
-  setTimeout(() => {
-    clone.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
-    clone.style.transform = 'scale(1.1) rotate(10deg)';
-    clone.style.opacity = '0';
-  }, 10);
-
-  setTimeout(() => clone.remove(), 800);
-}
-
-// Drag with trail effect
-document.querySelectorAll('.window').forEach(win => {
-  const header = win.querySelector('.window-header');
-  header.addEventListener('mousedown', startDrag);
-
-  function startDrag(e) {
-    let startX = e.clientX;
-    let startY = e.clientY;
-    const rect = win.getBoundingClientRect();
-    const offsetX = startX - rect.left;
-    const offsetY = startY - rect.top;
-
-    function onMouseMove(e) {
+  document.addEventListener('mousemove', e => {
+    if (isDragging) {
       win.style.left = `${e.clientX - offsetX}px`;
       win.style.top = `${e.clientY - offsetY}px`;
 
-      // Create a ghost clone every few frames
-      if (Math.random() < 0.25) {
-        createGhostClone(win);
-      }
-    }
+      const trail = win.cloneElement.cloneNode(true);
+      trail.style.position = 'absolute';
+      trail.style.left = win.style.left;
+      trail.style.top = win.style.top;
+      trail.style.opacity = '0.1';
+      trail.style.pointerEvents = 'none';
+      trail.style.zIndex = '0';
+      trail.classList.add('trail');
+      document.body.appendChild(trail);
 
-    function onMouseUp() {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      setTimeout(() => trail.remove(), 1000);
     }
+  });
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  }
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    if (win.cloneElement) win.cloneElement.remove();
+  });
 });
+
+// Keyboard Shortcuts
+window.addEventListener('keydown', e => {
+  const key = e.ctrlKey && e.key.toLowerCase();
+  if (key === 'a') toggle('about');
+  if (key === 'e') toggle('projects');
+  if (key === 'l') toggle('contact');
+  if (key === 'h') toggle('help');
+});
+
+function toggle(id) {
+  const win = document.getElementById(id);
+  win.style.display = win.style.display === 'none' ? 'block' : 'none';
+}
+
+// Resize fix
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Start matrix animation
+drawMatrix();
