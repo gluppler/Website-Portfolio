@@ -98,36 +98,39 @@ html, body {
   color: #9f9;
 }
 
-/* System Footer */
-.system-footer {
+/* ID Command Footer */
+.footer {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  background: rgba(0,30,0,0.9);
   padding: 10px;
-  border-top: 2px solid #0f0;
-  backdrop-filter: blur(2px);
-}
-
-.prompt { color: #0f0; }
-.command { color: #9f9; }
-.contact-methods { margin-top: 10px; }
-.email-link { 
-  color: #0f0; 
-  text-decoration: none;
-  display: block;
-  margin-bottom: 10px;
-}
-.social-links { 
-  margin-top: 10px; 
-  gap: 20px; 
-  display: flex;
-}
-.social-links a {
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid #0f0;
+  font-family: 'Fira Mono', monospace;
+  font-size: 14px;
   color: #0f0;
-  font-size: 1.2em;
+  z-index: 999;
 }
 
+.footer pre {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+/* Contact Panel */
+#contact {
+  position: absolute;
+  width: 300px;
+}
+
+#contact .social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
 /* Interactive Elements */
 a { 
   color: #0f0; 
@@ -137,3 +140,15 @@ a:hover {
   color: #ff0; 
   text-shadow: 0 0 8px #ff0;
 }
+
+/* Fixed Fact Panel */
+#fact {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 400px;
+  resize: none;
+}
+
