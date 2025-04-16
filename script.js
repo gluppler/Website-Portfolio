@@ -92,3 +92,19 @@ window.addEventListener('resize', () => {
 
 // Start matrix animation
 drawMatrix();
+
+// Fetch and display Fact of the Day
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
+    .then(response => response.json())
+    .then(data => {
+      const factElement = document.getElementById('fact-text');
+      if (factElement) {
+        factElement.textContent = data.text;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching fact:', error);
+    });
+});
+
