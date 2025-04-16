@@ -1,9 +1,15 @@
-// Matrix background animation
+// Matrix Animation
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 let cols, drops;
+let animationFrame;
 const FOOTER_MARGIN = 40;
 let footerHeight = 0;
+
+// Panel Management
+let isDragging = false;
+let currentPanel = null;
+let offsetX, offsetY;
 
 function calculateFooterHeight() {
   const footer = document.querySelector('.footer');
@@ -25,6 +31,7 @@ function enforceBoundaries(panel) {
   panel.style.left = `${left}px`;
 }
 
+// Initialize Canvas
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -32,32 +39,26 @@ function resizeCanvas() {
   drops = Array(cols).fill(1);
 }
 
-window.addEventListener('resize', () => {
-  resizeCanvas();
-  calculateFooterHeight();
-  document.querySelectorAll('.window:not(#fact)').forEach(enforceBoundaries);
-});
-
-resizeCanvas();
-calculateFooterHeight();
-
+// Matrix Animation
 const katakana = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  ctx.fillStyle = isMobile ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.1)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = '#0f0'; 
+  ctx.fillStyle = '#0f0';
   ctx.font = '16px monospace';
+
   drops.forEach((y,i) => {
     const char = katakana[Math.floor(Math.random()*katakana.length)];
     ctx.fillText(char, i*16, y*16);
     drops[i] = (y*16 > canvas.height && Math.random()>0.975) ? 0 : y+1;
   });
-  requestAnimationFrame(drawMatrix);
-}
-drawMatrix();
 
-// Panel Trail Effect
+  animationFrame = requestAnimationFrame(drawMatrix);
+}
+
+// Panel Dragging
 function createTrail(panel) {
   const clone = panel.cloneNode(true);
   clone.classList.add('trailing');
@@ -65,25 +66,31 @@ function createTrail(panel) {
   setTimeout(() => clone.remove(), 200);
 }
 
-// Draggable Panels
 function makeDraggable(panel) {
-  let isDragging = false;
-  let offsetX, offsetY;
-  let currentPanel = null;
-
-  panel.querySelector('.header').addEventListener('mousedown', (e) => {
+  const startDrag = (clientX, clientY) => {
     isDragging = true;
     currentPanel = panel;
-    offsetX = e.clientX - panel.offsetLeft;
-    offsetY = e.clientY - panel.offsetTop;
+    offsetX = clientX - panel.offsetLeft;
+    offsetY = clientY - panel.offsetTop;
     createTrail(panel);
+  };
+
+  // Mouse Events
+  panel.querySelector('.header').addEventListener('mousedown', (e) => {
+    startDrag(e.clientX, e.clientY);
   });
 
-  document.addEventListener('mousemove', (e) => {
+  // Touch Events
+  panel.querySelector('.header').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  });
+
+  const moveHandler = (clientX, clientY) => {
     if (!isDragging || !currentPanel) return;
     
-    let newTop = e.clientY - offsetY;
-    let newLeft = e.clientX - offsetX;
+    let newTop = clientY - offsetY;
+    let newLeft = clientX - offsetX;
     
     const maxTop = window.innerHeight - currentPanel.offsetHeight - footerHeight;
     const maxLeft = window.innerWidth - currentPanel.offsetWidth;
@@ -95,29 +102,37 @@ function makeDraggable(panel) {
     currentPanel.style.left = `${newLeft}px`;
     
     if (Date.now() % 5 === 0) createTrail(currentPanel);
+  };
+
+  document.addEventListener('mousemove', (e) => moveHandler(e.clientX, e.clientY));
+  document.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    moveHandler(e.touches[0].clientX, e.touches[0].clientY);
   });
 
-  document.addEventListener('mouseup', () => {
+  const stopDrag = () => {
     isDragging = false;
     currentPanel = null;
-  });
+  };
+
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
 }
 
-// Initialize
+// Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
-  // Make all windows except fact panel draggable
+  resizeCanvas();
+  calculateFooterHeight();
+
+  // Initialize Panels
   document.querySelectorAll('.window:not(#fact)').forEach(panel => {
     makeDraggable(panel);
-    
-    // Set initial position with boundaries
     panel.style.left = Math.random() * (window.innerWidth - 300 - 40) + 20 + 'px';
     panel.style.top = Math.random() * (window.innerHeight - 200 - footerHeight - 40) + 20 + 'px';
-    
-    // Add resize observer
     new ResizeObserver(() => enforceBoundaries(panel)).observe(panel);
   });
 
-  // Position fact panel
+  // Position Fact Panel
   const factPanel = document.getElementById('fact');
   factPanel.style.position = 'fixed';
   factPanel.style.left = '50%';
@@ -131,24 +146,33 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('fact-text').textContent = data.text;
     })
     .catch(() => {
-      document.getElementById('fact-text').textContent = 'Error loading fact - check your connection';
+      document.getElementById('fact-text').textContent = 'Error loading fact';
     });
+
+  // Start Animation
+  const startAnimation = () => {
+    if (!animationFrame) drawMatrix();
+    document.body.removeEventListener('touchstart', startAnimation);
+    document.body.removeEventListener('mousedown', startAnimation);
+  };
+  document.body.addEventListener('touchstart', startAnimation, { once: true });
+  document.body.addEventListener('mousedown', startAnimation, { once: true });
 
   // Keyboard Shortcuts
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey) {
       switch(e.key.toLowerCase()) {
         case 'h': togglePanel('help'); break;
+        case 'c': togglePanel('contact'); break;
         case 'w': togglePanel('whoami'); break;
         case 't': togglePanel('tools'); break;
         case 'p': togglePanel('projects'); break;
-        case 'c': togglePanel('contact'); break;
       }
     }
   });
 });
 
-// Toggle Visibility
+// Toggle Panels
 function togglePanel(id) {
   const panel = document.getElementById(id);
   if (panel.style.display === 'none' || !panel.style.display) {
@@ -160,3 +184,10 @@ function togglePanel(id) {
     panel.style.display = 'none';
   }
 }
+
+// Window Resize Handler
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  calculateFooterHeight();
+  document.querySelectorAll('.window:not(#fact)').forEach(enforceBoundaries);
+});
