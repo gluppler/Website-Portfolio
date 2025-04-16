@@ -90,3 +90,11 @@ html, body {
     transform: scale(1.05);
   }
 }
+
+.ghost {
+  z-index: 9999;
+  box-shadow: 0 0 10px #0F0;
+  border: 2px dashed #0F0;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
