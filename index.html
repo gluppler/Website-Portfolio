@@ -13,6 +13,7 @@
     <button class="mobile-btn" onclick="togglePanel('help')">☰ Menu</button>
   </div>
 
+  <!-- Fortune Panel -->
   <div class="window" id="fact">
     <div class="header">fortune</div>
     <div class="content">
@@ -20,6 +21,7 @@
     </div>
   </div>
 
+  <!-- Whoami Panel -->
   <div class="window" id="whoami">
     <div class="header">whoami</div>
     <div class="content">
@@ -36,80 +38,85 @@
     </div>
   </div>
 
-  <div class="window" id="tools">
-    <div class="header">cd ~/arsenal</div>
+  <!-- Arsenal - split into categories -->
+  <div class="window" id="tools-core">
+    <div class="header">Core Competencies</div>
     <div class="content">
-      <p class="intro-note">Actively developing proficiency with industry-standard tools and techniques for reverse engineering and malware analysis:</p>
-      <div class="category">
-        <h3><i class="fa fa-cogs"></i> Core Competencies</h3>
-        <ul class="skill-grid">
-          <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
-          <li><span class="chevron">▶</span> Malware Deconstruction</li>
-          <li><span class="chevron">▶</span> Static & Dynamic Analysis</li>
-          <li><span class="chevron">▶</span> Vulnerability Research</li>
-          <li><span class="chevron">▶</span> Exploit Development Concepts</li>
-          <li><span class="chevron">▶</span> System Internals (Linux/Win)</li>
-          <li><span class="chevron">▶</span> C / Assembly Programming</li>
-          <li><span class="chevron">▶</span> Scripting (Python/Bash)</li>
-        </ul>
-      </div>
-      <div class="divider"></div>
-      <div class="category">
-        <h3><i class="fa fa-terminal"></i> Tooling & Environments</h3>
-        <div class="tool-category">
-          <h4>Disassembly & Decompilation:</h4>
-          <ul class="tool-list">
-            <li>Radare2 / Rizin</li>
-            <li>Ghidra</li>
-            <li>IDA Pro (Learning)</li>
-            <li>objdump</li>
-            <li>Binary Ninja (Exploring)</li>
-          </ul>
-        </div>
-        <div class="tool-category">
-          <h4>Debugging:</h4>
-          <ul class="tool-list">
-            <li>GDB (Pwndbg/GEF)</li>
-            <li>x64dbg / OllyDbg</li>
-            <li>WinDbg (Learning)</li>
-          </ul>
-        </div>
-        <div class="tool-category">
-          <h4>Dynamic Analysis:</h4>
-          <ul class="tool-list">
-            <li>strace / ltrace</li>
-            <li>ProcMon / Process Hacker</li>
-            <li>Wireshark</li>
-            <li>API Monitor</li>
-            <li>Sandbox Environments</li>
-          </ul>
-        </div>
-        <div class="tool-category">
-          <h4>Static Analysis & Utilities:</h4>
-          <ul class="tool-list">
-            <li>strings</li>
-            <li>pestudio</li>
-            <li>DIE (Detect It Easy)</li>
-            <li>YARA (Rule Writing)</li>
-            <li>Capstone / Keystone</li>
-          </ul>
-        </div>
-        <div class="tool-category">
-          <h4>Memory Forensics:</h4>
-          <ul class="tool-list">
-            <li>Volatility Framework</li>
-          </ul>
-        </div>
-        <div class="tool-category">
-          <h4>Environments:</h4>
-          <ul class="tool-list">
-            <li>Linux (Kali, Arch)</li>
-            <li>Windows Internals</li>
-            <li>QEMU/Virt-Manager</li>
-            <li>Docker</li>
-          </ul>
-        </div>
-      </div>
+      <ul class="skill-grid">
+        <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
+        <li><span class="chevron">▶</span> Malware Deconstruction</li>
+        <li><span class="chevron">▶</span> Static & Dynamic Analysis</li>
+        <li><span class="chevron">▶</span> Vulnerability Research</li>
+        <li><span class="chevron">▶</span> Exploit Development Concepts</li>
+        <li><span class="chevron">▶</span> System Internals (Linux/Win)</li>
+        <li><span class="chevron">▶</span> C / Assembly Programming</li>
+        <li><span class="chevron">▶</span> Scripting (Python/Bash)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-disasm">
+    <div class="header">Disassembly & Decompilation</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>Radare2 / Rizin</li>
+        <li>Ghidra</li>
+        <li>IDA Pro (Learning)</li>
+        <li>objdump</li>
+        <li>Binary Ninja (Exploring)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-debug">
+    <div class="header">Debugging</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>GDB (Pwndbg/GEF)</li>
+        <li>x64dbg / OllyDbg</li>
+        <li>WinDbg (Learning)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-dynamic">
+    <div class="header">Dynamic Analysis</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>strace / ltrace</li>
+        <li>ProcMon / Process Hacker</li>
+        <li>Wireshark</li>
+        <li>API Monitor</li>
+        <li>Sandbox Environments</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-static">
+    <div class="header">Static Analysis & Utilities</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>strings</li>
+        <li>pestudio</li>
+        <li>DIE (Detect It Easy)</li>
+        <li>YARA (Rule Writing)</li>
+        <li>Capstone / Keystone</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-memory">
+    <div class="header">Memory Forensics</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>Volatility Framework</li>
+      </ul>
+    </div>
+  </div>
+  <div class="window" id="tools-env">
+    <div class="header">Environments</div>
+    <div class="content">
+      <ul class="tool-list">
+        <li>Linux (Kali, Arch)</li>
+        <li>Windows Internals</li>
+        <li>QEMU/Virt-Manager</li>
+        <li>Docker</li>
+      </ul>
     </div>
   </div>
 
