@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Gabe's Terminal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,169 +13,162 @@
     <button class="mobile-btn" onclick="togglePanel('help')">☰ Menu</button>
   </div>
 
-  <div class="panel-container">
-    <!-- Fortune Panel -->
-    <div class="window" id="fact">
-      <div class="header">fortune</div>
-      <div class="content">
-        <p id="fact-text">Initializing fortune...</p>
-      </div>
+  <div class="window" id="fact">
+    <div class="header">fortune</div>
+    <div class="content">
+      <p id="fact-text">Initializing fortune database...</p>
     </div>
+  </div>
 
-    <!-- Whoami Panel -->
-    <div class="window" id="whoami">
-      <div class="header">whoami</div>
-      <div class="content">
-        <div class="objective">
-          Highly motivated student seeking challenging opportunities (internship/junior role) in Reverse Engineering or Malware Analysis to apply analytical skills and contribute to cybersecurity defenses.
-        </div>
-        <p class="glow-text">Gabe Chew</p>
-        <p class="aka">AKA <span class="glow-text">Gluppler</span></p>
-        <div class="divider"></div>
-        <p class="title">[ Aspiring Reverse Engineer / Malware Analyst ]</p>
-        <p class="bio">
-          Passionate about dissecting binary realities and fortifying cyber frontiers. Actively developing skills in malware deconstruction, vulnerability analysis, and system hardening through hands-on projects and continuous learning. Eager to analyze complex threats and contribute to robust security solutions.
-        </p>
+  <div class="window" id="whoami">
+    <div class="header">whoami</div>
+    <div class="content">
+      <div class="objective">
+        Highly motivated student seeking challenging opportunities (internship/junior role) in Reverse Engineering or Malware Analysis to apply analytical skills and contribute to cybersecurity defenses.
       </div>
+      <p class="glow-text">Gabe Chew</p>
+      <p class="aka">AKA <span class="glow-text">Gluppler</span></p>
+      <div class="divider"></div>
+      <p class="title">[ Aspiring Reverse Engineer / Malware Analyst ]</p>
+      <p class="bio">
+        Passionate about dissecting binary realities and fortifying cyber frontiers. Actively developing skills in malware deconstruction, vulnerability analysis, and system hardening through hands-on projects and continuous learning. Eager to analyze complex threats and contribute to robust security solutions.
+      </p>
     </div>
+  </div>
 
-    <!-- Tools Panel -->
-    <div class="window" id="tools">
-      <div class="header">cd ~/arsenal</div>
-      <div class="content">
-        <p class="intro-note">Actively developing proficiency with industry-standard tools and techniques for reverse engineering and malware analysis:</p>
-        <div class="category">
-          <h3><i class="fa fa-cogs"></i> Core Competencies</h3>
-          <ul class="skill-grid">
-            <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
-            <li><span class="chevron">▶</span> Malware Deconstruction</li>
-            <li><span class="chevron">▶</span> Static & Dynamic Analysis</li>
-            <li><span class="chevron">▶</span> Vulnerability Research</li>
-            <li><span class="chevron">▶</span> Exploit Development Concepts</li>
-            <li><span class="chevron">▶</span> System Internals (Linux/Win)</li>
-            <li><span class="chevron">▶</span> C / Assembly Programming</li>
-            <li><span class="chevron">▶</span> Scripting (Python/Bash)</li>
+  <div class="window" id="tools">
+    <div class="header">cd ~/arsenal</div>
+    <div class="content">
+      <p class="intro-note">Actively developing proficiency with industry-standard tools and techniques for reverse engineering and malware analysis:</p>
+      <div class="category">
+        <h3><i class="fa fa-cogs"></i> Core Competencies</h3>
+        <ul class="skill-grid">
+          <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
+          <li><span class="chevron">▶</span> Malware Deconstruction</li>
+          <li><span class="chevron">▶</span> Static & Dynamic Analysis</li>
+          <li><span class="chevron">▶</span> Vulnerability Research</li>
+          <li><span class="chevron">▶</span> Exploit Development Concepts</li>
+          <li><span class="chevron">▶</span> System Internals (Linux/Win)</li>
+          <li><span class="chevron">▶</span> C / Assembly Programming</li>
+          <li><span class="chevron">▶</span> Scripting (Python/Bash)</li>
+        </ul>
+      </div>
+      <div class="divider"></div>
+      <div class="category">
+        <h3><i class="fa fa-terminal"></i> Tooling & Environments</h3>
+        <div class="tool-category">
+          <h4>Disassembly & Decompilation:</h4>
+          <ul class="tool-list">
+            <li>Radare2 / Rizin</li>
+            <li>Ghidra</li>
+            <li>IDA Pro (Learning)</li>
+            <li>objdump</li>
+            <li>Binary Ninja (Exploring)</li>
           </ul>
         </div>
+        <div class="tool-category">
+          <h4>Debugging:</h4>
+          <ul class="tool-list">
+            <li>GDB (Pwndbg/GEF)</li>
+            <li>x64dbg / OllyDbg</li>
+            <li>WinDbg (Learning)</li>
+          </ul>
+        </div>
+        <div class="tool-category">
+          <h4>Dynamic Analysis:</h4>
+          <ul class="tool-list">
+            <li>strace / ltrace</li>
+            <li>ProcMon / Process Hacker</li>
+            <li>Wireshark</li>
+            <li>API Monitor</li>
+            <li>Sandbox Environments</li>
+          </ul>
+        </div>
+        <div class="tool-category">
+          <h4>Static Analysis & Utilities:</h4>
+          <ul class="tool-list">
+            <li>strings</li>
+            <li>pestudio</li>
+            <li>DIE (Detect It Easy)</li>
+            <li>YARA (Rule Writing)</li>
+            <li>Capstone / Keystone</li>
+          </ul>
+        </div>
+        <div class="tool-category">
+          <h4>Memory Forensics:</h4>
+          <ul class="tool-list">
+            <li>Volatility Framework</li>
+          </ul>
+        </div>
+        <div class="tool-category">
+          <h4>Environments:</h4>
+          <ul class="tool-list">
+            <li>Linux (Kali, Arch)</li>
+            <li>Windows Internals</li>
+            <li>QEMU/Virt-Manager</li>
+            <li>Docker</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="window" id="projects">
+    <div class="header">cd ~/projects</div>
+    <div class="content">
+      <div class="project">
+        <h3><i class="fa fa-cogs"></i> Binary Loader Framework <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
+        <p>Developed ELF/PE parser using libbfd for static analysis of executable headers and sections, enabling automated metadata extraction.</p>
+      </div>
+      <div class="project">
+        <h3><i class="fa fa-code-fork"></i> ELF Code Injection Study <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
+        <p>Implemented PLT/GOT hijacking and .init_array injection techniques for runtime modification and process manipulation analysis.</p>
+      </div>
+      <div class="project">
+        <h3><i class="fa fa-search"></i> ROP Gadget Scanner <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
+        <p>Built custom disassembler leveraging the Capstone engine for automated detection of Return-Oriented Programming gadget candidates.</p>
+      </div>
+      <div class="project">
+        <h3><i class="fa fa-shield"></i> Dynamic Taint Analysis PoC <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
+        <p>Created a proof-of-concept data flow tracking system using libdft to identify potential sensitive information leaks during execution.</p>
+      </div>
+      <div class="project">
+        <h3><i class="fa fa-robot"></i> Symbolic Execution Explorer <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
+        <p>Utilized the Triton framework for symbolic execution to explore program paths and identify conditions leading to vulnerabilities.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="window" id="contact">
+    <div class="header">cat ~/contact.txt</div>
+    <div class="content">
+      <div class="contact-links">
+        <p><a href="mailto:chewzhanhongint@gmail.com"><i class="fa fa-envelope-o"></i> chewzhanhongint@gmail.com</a></p>
+        <a href="#" class="resume-link"><i class="fa fa-file-pdf-o"></i> Download Resume (PDF)</a>
+      </div>
+      <div class="divider"></div>
+      <div class="social-links">
+        <a href="https://github.com/gluppler"><i class="fa fa-github-alt"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/gabechewzhanhong/"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <a href="https://app.hackthebox.com/profile/XXXXXX"><i class="fa fa-code"></i> HackTheBox</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="window" id="help">
+    <div class="header">help --usage</div>
+    <div class="content">
+      <div class="command-list">
+        <p><span class="chevron">▶</span> Ctrl+H / Menu - Toggle help</p>
+        <p><span class="chevron">▶</span> Ctrl+C - Contact panel</p>
+        <p><span class="chevron">▶</span> Ctrl+W - Whoami panel</p>
+        <p><span class="chevron">▶</span> Ctrl+T - Tools panel</p>
+        <p><span class="chevron">▶</span> Ctrl+P - Projects panel</p>
         <div class="divider"></div>
-        <div class="category">
-          <h3><i class="fa fa-terminal"></i> Tooling & Environments</h3>
-          <div class="tool-category">
-            <h4>Disassembly & Decompilation:</h4>
-            <ul class="tool-list">
-              <li>Radare2 / Rizin</li>
-              <li>Ghidra</li>
-              <li>IDA Pro (Learning)</li>
-              <li>objdump</li>
-              <li>Binary Ninja (Exploring)</li>
-            </ul>
-          </div>
-          <div class="tool-category">
-            <h4>Debugging:</h4>
-            <ul class="tool-list">
-              <li>GDB (Pwndbg/GEF)</li>
-              <li>x64dbg / OllyDbg</li>
-              <li>WinDbg (Learning)</li>
-            </ul>
-          </div>
-          <div class="tool-category">
-            <h4>Dynamic Analysis:</h4>
-            <ul class="tool-list">
-              <li>strace / ltrace</li>
-              <li>ProcMon / Process Hacker</li>
-              <li>Wireshark</li>
-              <li>API Monitor</li>
-              <li>Sandbox Environments</li>
-            </ul>
-          </div>
-          <div class="tool-category">
-            <h4>Static Analysis & Utilities:</h4>
-            <ul class="tool-list">
-              <li>strings</li>
-              <li>pestudio</li>
-              <li>DIE (Detect It Easy)</li>
-              <li>YARA (Rule Writing)</li>
-              <li>Capstone / Keystone</li>
-            </ul>
-          </div>
-          <div class="tool-category">
-            <h4>Memory Forensics:</h4>
-            <ul class="tool-list">
-              <li>Volatility Framework</li>
-            </ul>
-          </div>
-          <div class="tool-category">
-            <h4>Environments:</h4>
-            <ul class="tool-list">
-              <li>Linux (Kali, Arch)</li>
-              <li>Windows Internals</li>
-              <li>QEMU/Virt-Manager</li>
-              <li>Docker</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Projects Panel -->
-    <div class="window" id="projects">
-      <div class="header">cd ~/projects</div>
-      <div class="content">
-        <div class="project">
-          <h3><i class="fa fa-cogs"></i> Binary Loader Framework <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-          <p>Developed ELF/PE parser using libbfd for static analysis of executable headers and sections, enabling automated metadata extraction.</p>
-        </div>
-        <div class="project">
-          <h3><i class="fa fa-code-fork"></i> ELF Code Injection Study <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-          <p>Implemented PLT/GOT hijacking and .init_array injection techniques for runtime modification and process manipulation analysis.</p>
-        </div>
-        <div class="project">
-          <h3><i class="fa fa-search"></i> ROP Gadget Scanner <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-          <p>Built custom disassembler leveraging the Capstone engine for automated detection of Return-Oriented Programming gadget candidates.</p>
-        </div>
-        <div class="project">
-          <h3><i class="fa fa-shield"></i> Dynamic Taint Analysis PoC <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-          <p>Created a proof-of-concept data flow tracking system using libdft to identify potential sensitive information leaks during execution.</p>
-        </div>
-        <div class="project">
-          <h3><i class="fa fa-robot"></i> Symbolic Execution Explorer <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-          <p>Utilized the Triton framework for symbolic execution to explore program paths and identify conditions leading to vulnerabilities.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Panel -->
-    <div class="window" id="contact">
-      <div class="header">cat ~/contact.txt</div>
-      <div class="content">
-        <div class="contact-links">
-          <p><a href="mailto:chewzhanhongint@gmail.com"><i class="fa fa-envelope-o"></i> chewzhanhongint@gmail.com</a></p>
-          <a href="#" class="resume-link"><i class="fa fa-file-pdf-o"></i> Download Resume (PDF)</a>
-        </div>
-        <div class="divider"></div>
-        <div class="social-links">
-          <a href="https://github.com/gluppler"><i class="fa fa-github-alt"></i> GitHub</a>
-          <a href="https://www.linkedin.com/in/gabechewzhanhong/"><i class="fa fa-linkedin"></i> LinkedIn</a>
-          <a href="https://app.hackthebox.com/profile/XXXXXX"><i class="fa fa-code"></i> HackTheBox</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Help Panel -->
-    <div class="window" id="help">
-      <div class="header">help --usage</div>
-      <div class="content">
-        <div class="command-list">
-          <p><span class="chevron">▶</span> Ctrl+H / Menu - Toggle help</p>
-          <p><span class="chevron">▶</span> Ctrl+C - Contact panel</p>
-          <p><span class="chevron">▶</span> Ctrl+W - Whoami panel</p>
-          <p><span class="chevron">▶</span> Ctrl+T - Tools panel</p>
-          <p><span class="chevron">▶</span> Ctrl+P - Projects panel</p>
-          <div class="divider"></div>
-          <p><span class="chevron">▶</span> Drag headers to move panels</p>
-          <p><span class="chevron">▶</span> Resize not available in Kanban mode</p>
-          <p><span class="chevron">▶</span> Scroll to view footer</p>
-        </div>
+        <p><span class="chevron">▶</span> Drag headers to move</p>
+        <p><span class="chevron">▶</span> Resize from corners (desktop)</p>
+        <p><span class="chevron">▶</span> Click links/icons to interact</p>
+        <p><span class="chevron">▶</span> Mobile: Use Menu button</p>
       </div>
     </div>
   </div>
