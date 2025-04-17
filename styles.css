@@ -2,136 +2,69 @@
 @import url('https://fonts.cdnfonts.com/css/terminal');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
-/* CSS Variables for easy theming */
 :root {
-  --bg-color: #000;
-  --fg-color: #0f0;
-  --panel-bg: rgba(10, 10, 10, 0.85);
-  --panel-border: #0f0;
-  --panel-radius: 5px;
-  --font-family: 'Courier New', Courier, monospace;
+  --bg: #000;
+  --fg: #0f0;
+  --panel-bg: rgba(10,10,10,0.85);
+  --gap: 16px;
+  --snap: 20px;
 }
-
-/* Global box-sizing */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Body & canvas */
+*, *::before, *::after { box-sizing: border-box; }
 body {
-  background-color: var(--bg-color);
-  color: var(--fg-color);
-  font-family: var(--font-family);
   margin: 0;
-  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Courier New', monospace;
+  overflow-y: auto;
 }
-canvas#matrix {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+canvas#matrix { position: fixed; inset: 0; z-index: -1; }
+
+#mobile-menu { position: fixed; top: 10px; right: 10px; z-index: 1000; }
+.mobile-btn {
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  padding: 8px 12px;
+  font-family: var(--font-family);
+  cursor: pointer;
 }
 
-/* Base panel styles */
+.panel-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  padding: var(--gap);
+}
+
 .window {
-  position: absolute;
-  background-color: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  box-shadow: 0 0 10px var(--panel-border);
-  border-radius: var(--panel-radius);
-  overflow: hidden;
-  resize: both;
+  background: var(--panel-bg);
+  border: 1px solid var(--fg);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--fg);
+  flex: 1 1 300px;
   min-width: 250px;
-  min-height: 150px;
-  z-index: 10;
+  max-width: calc(33% - var(--gap));
   display: flex;
   flex-direction: column;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: relative;
 }
 .header {
-  background-color: var(--fg-color);
-  color: var(--bg-color);
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: move;
+  padding: 8px;
+  background: var(--fg);
+  color: var(--bg);
+  cursor: grab;
   user-select: none;
-  border-top-left-radius: calc(var(--panel-radius) - 1px);
-  border-top-right-radius: calc(var(--panel-radius) - 1px);
 }
+.header:active { cursor: grabbing; }
 .content {
-  padding: 15px;
-  flex: 1;
-  overflow-y: auto;
-  font-size: 0.9em;
-  line-height: 1.6;
+  padding: 12px;
+  overflow: auto;
 }
 
-/* Responsive constraints */
-.window {
-  width: auto;
-  height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
-}
+/* Specific styles omitted for brevity (glow-text, skill-grid, etc.) assume same as before */
 
-/* Fortune panel always centered at top */
-#fact {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  width: auto;
-  max-width: 80vw;
-}
-
-/* Footer centered bottom, no borders */
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--fg-color);
-  padding: 5px 10px;
-  font-size: 0.8em;
-  z-index: 20;
   text-align: center;
-  background: none;
-  border: none;
-}
-.footer pre {
-  margin: 0;
-  background: none;
-  border: none;
-}
-
-/* Other panel-specific styles unchanged for brevity */
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .window {
-    position: fixed;
-    width: 90vw;
-    height: 75vh;
-    top: 10vh;
-    left: 5vw;
-    margin: 0;
-    resize: none;
-    display: none;
-    z-index: 100;
-  }
-  .window.active {
-    display: flex;
-  }
-  #mobile-menu {
-    display: block;
-  }
-  .footer {
-    font-size: 0.7em;
-    padding: 3px 5px;
-  }
-  .skill-grid {
-    grid-template-columns: 1fr;
-  }
+  padding: var(--gap);
+  font-size: 0.8em;
 }
