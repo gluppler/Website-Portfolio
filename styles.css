@@ -2,264 +2,136 @@
 @import url('https://fonts.cdnfonts.com/css/terminal');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
-    /* Basic styles - assuming styles.css has the main layout */
-    body {
-      background-color: #000;
-      color: #0f0;
-      font-family: 'Courier New', Courier, monospace; /* Fallback font */
-      margin: 0;
-      overflow: hidden; /* Hide scrollbars for the matrix effect */
-    }
+/* CSS Variables for easy theming */
+:root {
+  --bg-color: #000;
+  --fg-color: #0f0;
+  --panel-bg: rgba(10, 10, 10, 0.85);
+  --panel-border: #0f0;
+  --panel-radius: 5px;
+  --font-family: 'Courier New', Courier, monospace;
+}
 
-    /* Ensure styles from styles.css are applied if linked externally */
-    /* The styles below are primarily for self-contained example */
+/* Global box-sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-    canvas#matrix {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Place canvas behind content */
-    }
+/* Body & canvas */
+body {
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+  font-family: var(--font-family);
+  margin: 0;
+  overflow: hidden;
+}
+canvas#matrix {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
-    .window {
-      position: absolute;
-      background-color: rgba(10, 10, 10, 0.85); /* Dark semi-transparent background */
-      border: 1px solid #0f0; /* Green border */
-      box-shadow: 0 0 10px #0f0; /* Green glow */
-      border-radius: 5px; /* Rounded corners */
-      overflow: hidden; /* Keep content inside */
-      resize: both; /* Allow resizing (desktop) */
-      min-width: 250px; /* Minimum width */
-      min-height: 150px; /* Minimum height */
-      z-index: 10; /* Ensure windows are above canvas */
-      display: flex; /* Use flexbox for layout */
-      flex-direction: column; /* Stack header and content vertically */
-    }
+/* Base panel styles */
+.window {
+  position: absolute;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 0 10px var(--panel-border);
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  resize: both;
+  min-width: 250px;
+  min-height: 150px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.header {
+  background-color: var(--fg-color);
+  color: var(--bg-color);
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: move;
+  user-select: none;
+  border-top-left-radius: calc(var(--panel-radius) - 1px);
+  border-top-right-radius: calc(var(--panel-radius) - 1px);
+}
+.content {
+  padding: 15px;
+  flex: 1;
+  overflow-y: auto;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
 
-    .header {
-      background-color: #0f0; /* Green header */
-      color: #000; /* Black text */
-      padding: 5px 10px;
-      font-weight: bold;
-      cursor: move; /* Indicate draggable */
-      user-select: none; /* Prevent text selection */
-      border-top-left-radius: 4px; /* Match window corners */
-      border-top-right-radius: 4px;
-    }
+/* Responsive constraints */
+.window {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+}
 
-    .content {
-      padding: 15px;
-      flex-grow: 1; /* Allow content to fill space */
-      overflow-y: auto; /* Add scrollbar if content overflows */
-      font-size: 0.9em;
-      line-height: 1.6;
-    }
+/* Fortune panel always centered at top */
+#fact {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: auto;
+  max-width: 80vw;
+}
 
-    /* Specific Panel Positioning (Example - adjust as needed by script.js) */
-    /* script.js now handles random positioning, these are just fallbacks/examples */
-    /* #fact { top: 20px; left: 50%; transform: translateX(-50%); position: fixed; width: 300px; height: auto; } */
-    /* #whoami { top: 100px; left: 50px; width: 350px; height: auto; } */
-    /* #tools { top: 100px; left: 420px; width: 450px; height: 550px; } */
-    /* #projects { top: 100px; left: 900px; width: 400px; height: 450px; } */
-    /* #contact { top: 500px; left: 50px; width: 350px; height: auto; } */
-    /* #help { top: 500px; left: 420px; width: 300px; height: auto; display: none; } */
+/* Footer centered bottom, no borders */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--fg-color);
+  padding: 5px 10px;
+  font-size: 0.8em;
+  z-index: 20;
+  text-align: center;
+  background: none;
+  border: none;
+}
+.footer pre {
+  margin: 0;
+  background: none;
+  border: none;
+}
 
+/* Other panel-specific styles unchanged for brevity */
 
-    /* --- Styles for #whoami --- */
-    .objective { /* Style for the new objective */
-        font-style: italic;
-        border: 1px dashed rgba(0, 255, 0, 0.5);
-        padding: 8px;
-        margin-bottom: 15px;
-        color: #9f9; /* Lighter green */
-    }
-    .glow-text {
-      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
-      font-weight: bold;
-    }
-    .aka {
-      font-size: 0.9em;
-      opacity: 0.8;
-      margin-top: 5px; /* Adjusted margin */
-    }
-    .divider {
-      height: 1px;
-      background-color: #0f0;
-      margin: 15px 0; /* Adjusted margin */
-      opacity: 0.5;
-    }
-    .title {
-      font-weight: bold;
-      margin-bottom: 10px; /* Adjusted margin */
-      color: #0f0; /* Ensure title is green */
-    }
-    .bio {
-      font-size: 0.9em; /* Slightly larger bio */
-      line-height: 1.7; /* Increased line height */
-    }
-
-    /* --- Styles for #tools --- */
-    .intro-note {
-        font-style: italic;
-        opacity: 0.8;
-        margin-bottom: 15px;
-        color: #0f0;
-    }
-    .category h3 {
-      color: #0f0;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 255, 0, 0.3);
-      padding-bottom: 5px;
-      font-size: 1.1em;
-    }
-    .category h3 i { margin-right: 8px; }
-    .tool-category { margin-bottom: 15px; padding-left: 10px; }
-    .tool-category h4 {
-        color: #0f0;
-        opacity: 0.9;
-        margin-bottom: 8px;
-        font-weight: normal;
-        text-decoration: underline;
-        font-size: 1em;
-    }
-    .tool-list, .skill-grid { list-style: none; padding-left: 0; margin: 0; }
-    .tool-list li, .skill-grid li { margin-bottom: 6px; color: #0f0; font-size: 0.9em; } /* Slightly more spacing */
-    .tool-list li::before { content: "> "; opacity: 0.7; }
-    .skill-grid { /* Use grid for competencies */
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
-        gap: 5px 15px; /* Row and column gap */
-    }
-    .skill-grid .chevron { color: #0f0; margin-right: 8px; opacity: 0.8; }
-
-    /* --- Styles for #projects --- */
-    .project {
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-    }
-    .project:last-child { border-bottom: none; }
-    .project h3 {
-      color: #0f0;
-      margin-bottom: 5px;
-      font-size: 1em;
-      display: flex; /* Use flex to align title and icon */
-      align-items: center;
-    }
-    .project h3 i { margin-right: 8px; color: #0f0; }
-    .project h3 .code-link { /* Style for the code link icon */
-        margin-left: 10px;
-        font-size: 0.9em;
-        opacity: 0.7;
-        transition: opacity 0.2s ease;
-        color: #0f0; /* Ensure link is green */
-        text-decoration: none;
-    }
-    .project h3 .code-link:hover { opacity: 1; text-shadow: 0 0 5px #0f0; }
-    .project p { font-size: 0.9em; opacity: 0.9; margin-left: 25px; line-height: 1.5; }
-
-    /* --- Styles for #contact --- */
-    #contact p a { color: #0f0; text-decoration: none; }
-    #contact p a:hover { text-decoration: underline; text-shadow: 0 0 5px #0f0; }
-    .contact-links { /* Container for email and resume */
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .resume-link { /* Style for the resume link */
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 15px;
-        border: 1px solid #0f0;
-        border-radius: 4px;
-        color: #0f0;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        background-color: rgba(0, 255, 0, 0.1);
-    }
-    .resume-link i { margin-right: 8px; }
-    .resume-link:hover {
-        background-color: rgba(0, 255, 0, 0.2);
-        box-shadow: 0 0 8px #0f0;
-        text-shadow: 0 0 5px #0f0;
-    }
-    .social-links {
-      margin-top: 15px;
-      display: flex;
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
-      justify-content: center; /* Center links */
-      gap: 15px; /* Spacing between links */
-    }
-    .social-links a {
-      color: #0f0;
-      text-decoration: none;
-      font-size: 0.9em;
-      padding: 5px 10px; /* Add some padding */
-      border: 1px solid transparent; /* Add border for hover effect */
-      border-radius: 3px;
-      transition: border-color 0.2s ease, text-shadow 0.2s ease;
-    }
-    .social-links a i { margin-right: 5px; }
-    .social-links a:hover {
-        text-decoration: none; /* Remove underline on hover */
-        text-shadow: 0 0 5px #0f0;
-        border-color: rgba(0, 255, 0, 0.5); /* Highlight border on hover */
-    }
-
-    /* --- Styles for #help --- */
-    .command-list p { margin-bottom: 8px; }
-    .command-list .chevron { color: #0f0; margin-right: 8px; opacity: 0.8; }
-
-    /* --- Footer --- */
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.9); /* Darker footer */
-      color: #0f0;
-      padding: 5px 10px;
-      font-size: 0.8em;
-      z-index: 20;
-      border-top: 1px solid #0f0;
-      text-align: center; /* Center footer text */
-    }
-    .footer pre { margin: 0; }
-
-    /* --- Mobile Menu --- */
-    #mobile-menu { display: none; position: fixed; top: 10px; right: 10px; z-index: 30; }
-    .mobile-btn { background-color: #0f0; color: #000; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-weight: bold; }
-
-    /* --- Trailing Window Effect --- */
-    .window.trailing {
-      opacity: 0.4;
-      transform: scale(0.95); /* Slightly different scale */
-      pointer-events: none;
-      transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Match timeout in JS */
-      z-index: 9; /* Ensure trails are behind active window */
-    }
-
-
-    /* --- Media Query for Mobile --- */
-    @media (max-width: 768px) {
-      .window {
-        position: fixed !important; /* Use fixed for mobile overlay */
-        width: 90vw !important;
-        height: 75vh !important; /* Fixed height */
-        max-width: 90vw; /* Override inline style */
-        max-height: 75vh; /* Override inline style */
-        left: 5vw !important; /* Center horizontally */
-        top: 10vh !important; /* Position from top */
-        margin: 0 auto;
-        resize: none;
-        display: none; /* Hide all panels initially */
-        z-index: 100; /* Ensure mobile panels are on top */
-      }
-      .window.active { display: flex; } /* Show active panel */
-      #mobile-menu { display: block; }
-      .footer { font-size: 0.7em; padding: 3px 5px; }
-      .skill-grid { grid-template-columns: 1fr; } /* Single column grid on mobile */
-       /* Help panel might be the initial view */
-       /* #help { display: flex; } */ /* Handled by JS togglePanel */
-    }
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .window {
+    position: fixed;
+    width: 90vw;
+    height: 75vh;
+    top: 10vh;
+    left: 5vw;
+    margin: 0;
+    resize: none;
+    display: none;
+    z-index: 100;
+  }
+  .window.active {
+    display: flex;
+  }
+  #mobile-menu {
+    display: block;
+  }
+  .footer {
+    font-size: 0.7em;
+    padding: 3px 5px;
+  }
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+}
