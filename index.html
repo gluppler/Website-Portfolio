@@ -1,189 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gabe's Terminal</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+    <div id="desktop-icons">
+        <a href="#whoami" class="desktop-icon" onclick="openNotepad('whoami'); return false;">
+            <i class="fas fa-user-secret"></i>
+            <span>whoami</span>
+        </a>
+        <a href="#projects" class="desktop-icon" onclick="openNotepad('projects'); return false;">
+            <i class="fas fa-folder-open"></i>
+            <span>Projects</span>
+        </a>
+        <a href="#skills" class="desktop-icon" onclick="openNotepad('skills'); return false;">
+            <i class="fas fa-laptop-code"></i>
+            <span>Skills</span>
+        </a>
+        <a href="#tools" class="desktop-icon" onclick="openNotepad('tools'); return false;">
+            <i class="fas fa-tools"></i>
+            <span>Tools</span>
+        </a>
+        <a href="#certs" class="desktop-icon" onclick="openNotepad('certs'); return false;">
+            <i class="fas fa-certificate"></i>
+            <span>Certs</span>
+        </a>
+        <a href="#blog" class="desktop-icon" target="_blank">
+            <i class="fas fa-blog"></i>
+            <span>Blog</span>
+        </a>
+        <a href="#contact" class="desktop-icon" onclick="openNotepad('contact'); return false;">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </div>
 
-  <div id="mobile-menu">
-    <button class="mobile-btn" onclick="togglePanel('help')">☰ Menu</button>
-  </div>
+    <div id="notepad" class="notepad">
+        <div class="title-bar">
+            <span id="notepad-title">Notepad</span>
+            <button class="close-btn" onclick="closeNotepad()">X</button>
+        </div>
+        <div class="notepad-content" id="notepad-content">
+            <h1>Welcome to My CyberSec Portfolio!</h1>
+        </div>
+    </div>
 
-  <!-- Fortune Panel -->
-  <div class="window" id="fact">
-    <div class="header">fortune</div>
-    <div class="content">
-      <p id="fact-text">Initializing fortune database...</p>
-    </div>
-  </div>
+    <footer>
+        © 2024 CyberSec Researcher | Built with <i class="fas fa-heart"></i> and hex editors
+        <br>
+        <i class="fas fa-envelope"></i> researcher@cybersec.portfolio
+    </footer>
 
-  <!-- Whoami Panel -->
-  <div class="window" id="whoami">
-    <div class="header">whoami</div>
-    <div class="content">
-      <div class="objective">
-        Highly motivated student seeking challenging opportunities (internship/junior role) in Reverse Engineering or Malware Analysis to apply analytical skills and contribute to cybersecurity defenses.
-      </div>
-      <p class="glow-text">Gabe Chew</p>
-      <p class="aka">AKA <span class="glow-text">Gluppler</span></p>
-      <div class="divider"></div>
-      <p class="title">[ Aspiring Reverse Engineer / Malware Analyst ]</p>
-      <p class="bio">
-        Passionate about dissecting binary realities and fortifying cyber frontiers. Actively developing skills in malware deconstruction, vulnerability analysis, and system hardening through hands-on projects and continuous learning. Eager to analyze complex threats and contribute to robust security solutions.
-      </p>
-    </div>
-  </div>
-
-  <!-- Arsenal - split into categories -->
-  <div class="window" id="tools-core">
-    <div class="header">Core Competencies</div>
-    <div class="content">
-      <ul class="skill-grid">
-        <li><span class="chevron">▶</span> Binary Reverse Engineering</li>
-        <li><span class="chevron">▶</span> Malware Deconstruction</li>
-        <li><span class="chevron">▶</span> Static & Dynamic Analysis</li>
-        <li><span class="chevron">▶</span> Vulnerability Research</li>
-        <li><span class="chevron">▶</span> Exploit Development Concepts</li>
-        <li><span class="chevron">▶</span> System Internals (Linux/Win)</li>
-        <li><span class="chevron">▶</span> C / Assembly Programming</li>
-        <li><span class="chevron">▶</span> Scripting (Python/Bash)</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-disasm">
-    <div class="header">Disassembly & Decompilation</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>Radare2 / Rizin</li>
-        <li>Ghidra</li>
-        <li>IDA Pro (Learning)</li>
-        <li>objdump</li>
-        <li>Binary Ninja (Exploring)</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-debug">
-    <div class="header">Debugging</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>GDB (Pwndbg/GEF)</li>
-        <li>x64dbg / OllyDbg</li>
-        <li>WinDbg (Learning)</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-dynamic">
-    <div class="header">Dynamic Analysis</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>strace / ltrace</li>
-        <li>ProcMon / Process Hacker</li>
-        <li>Wireshark</li>
-        <li>API Monitor</li>
-        <li>Sandbox Environments</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-static">
-    <div class="header">Static Analysis & Utilities</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>strings</li>
-        <li>pestudio</li>
-        <li>DIE (Detect It Easy)</li>
-        <li>YARA (Rule Writing)</li>
-        <li>Capstone / Keystone</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-memory">
-    <div class="header">Memory Forensics</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>Volatility Framework</li>
-      </ul>
-    </div>
-  </div>
-  <div class="window" id="tools-env">
-    <div class="header">Environments</div>
-    <div class="content">
-      <ul class="tool-list">
-        <li>Linux (Kali, Arch)</li>
-        <li>Windows Internals</li>
-        <li>QEMU/Virt-Manager</li>
-        <li>Docker</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="window" id="projects">
-    <div class="header">cd ~/projects</div>
-    <div class="content">
-      <div class="project">
-        <h3><i class="fa fa-cogs"></i> Binary Loader Framework <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-        <p>Developed ELF/PE parser using libbfd for static analysis of executable headers and sections, enabling automated metadata extraction.</p>
-      </div>
-      <div class="project">
-        <h3><i class="fa fa-code-fork"></i> ELF Code Injection Study <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-        <p>Implemented PLT/GOT hijacking and .init_array injection techniques for runtime modification and process manipulation analysis.</p>
-      </div>
-      <div class="project">
-        <h3><i class="fa fa-search"></i> ROP Gadget Scanner <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-        <p>Built custom disassembler leveraging the Capstone engine for automated detection of Return-Oriented Programming gadget candidates.</p>
-      </div>
-      <div class="project">
-        <h3><i class="fa fa-shield"></i> Dynamic Taint Analysis PoC <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-        <p>Created a proof-of-concept data flow tracking system using libdft to identify potential sensitive information leaks during execution.</p>
-      </div>
-      <div class="project">
-        <h3><i class="fa fa-robot"></i> Symbolic Execution Explorer <a href="#" class="code-link"><i class="fa fa-github"></i> Code</a></h3>
-        <p>Utilized the Triton framework for symbolic execution to explore program paths and identify conditions leading to vulnerabilities.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="window" id="contact">
-    <div class="header">cat ~/contact.txt</div>
-    <div class="content">
-      <div class="contact-links">
-        <p><a href="mailto:chewzhanhongint@gmail.com"><i class="fa fa-envelope-o"></i> chewzhanhongint@gmail.com</a></p>
-        <a href="#" class="resume-link"><i class="fa fa-file-pdf-o"></i> Download Resume (PDF)</a>
-      </div>
-      <div class="divider"></div>
-      <div class="social-links">
-        <a href="https://github.com/gluppler"><i class="fa fa-github-alt"></i> GitHub</a>
-        <a href="https://www.linkedin.com/in/gabechewzhanhong/"><i class="fa fa-linkedin"></i> LinkedIn</a>
-        <a href="https://app.hackthebox.com/profile/XXXXXX"><i class="fa fa-code"></i> HackTheBox</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="window" id="help">
-    <div class="header">help --usage</div>
-    <div class="content">
-      <div class="command-list">
-        <p><span class="chevron">▶</span> Ctrl+H / Menu - Toggle help</p>
-        <p><span class="chevron">▶</span> Ctrl+C - Contact panel</p>
-        <p><span class="chevron">▶</span> Ctrl+W - Whoami panel</p>
-        <p><span class="chevron">▶</span> Ctrl+T - Tools panel</p>
-        <p><span class="chevron">▶</span> Ctrl+P - Projects panel</p>
-        <div class="divider"></div>
-        <p><span class="chevron">▶</span> Drag headers to move</p>
-        <p><span class="chevron">▶</span> Resize from corners (desktop)</p>
-        <p><span class="chevron">▶</span> Click links/icons to interact</p>
-        <p><span class="chevron">▶</span> Mobile: Use Menu button</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer" id="id-output">
-    <pre>uid=1000(gluppler) gid=1000(gluppler) groups=1000(gluppler) // Location: Ampang Jaya, Selangor, Malaysia</pre>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
